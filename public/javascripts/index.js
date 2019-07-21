@@ -40,11 +40,7 @@ var markers = [];
 var weather = [];
 var astro = [];
 var places = [];
-//API tokens
-var OWMTOKEN = "a988bea713a230eb33341d294930daa4";
-var IPTOKEN = "23d823f4025c4f2e8f4e53ff273141fd";
-var HEREAPPID = "wIGpULNPoKxBasGgfYkp";
-var HEREAPPCODE = "AIPFIHPn4_DQgLJAyp8TwA";
+
 
 /**
   * this function handles the input (a featureCollection named gpstracks) and dynamically creates

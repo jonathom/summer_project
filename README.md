@@ -1,5 +1,5 @@
 # summer project geosoftware 1
-short descrition
+forked Aufgabe 7
 ## how to set things up
 `npm install`
 `npm start`
