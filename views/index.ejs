@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <!-- include osm -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+
+    <!-- include bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
+
+  <body onload="readRoutes();">
+    <!-- navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <a class="navbar-brand" href="#">Assignment 7</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Start</a></li>
+            <li><a href="/create">Create Route</a></li>
+            <li><a href="/update">Update Route</a></li>
+            <li><a href="/delete">Delete Route</a></li>
+            <li><a href="/polygon">Polygon</a></li>
+            <li><a href="/network">Network Analysis</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="author">Jonathan Bahlmann</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <p class="bg-info">This is a solution that probably has scambled route selection, but includes features as weather service etc.
+    There is a solution with better route selection but without API calls. It is /public/javascripts/client.js and you can simply include it by changing the included script in index.ejs.</p>
+
+    <div class="container-fluid">
+      <div id="mapdiv" style="width: 100%; height: 500px;" ;></div>
+    </div>
+
+    <div class="container-fluid">
+      <h4>Route selection</h4>
+    </div>
+    <div class="container-fluid">
+      <div id="results" class="row"></div>
+    </div>
+
+    <script src="/javascripts/index.js"></script>
+  </body>
+</html>
