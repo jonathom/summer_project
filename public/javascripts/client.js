@@ -16,7 +16,7 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 // tutorial
 // routes array to store JSON data
-var routesArray = [];
+var routesJSON = [];
 
 // on DOM ready
 $(document).ready(function() {
@@ -29,7 +29,7 @@ function readRoutes() {
 
   //get JSON from DB
   $.getJSON('/users/routes', function(data) {
-    routesArray = data;
+    routesJSON = data;
     $.each(data, function(index) {
       content += "<div id='"+index+"' class='col-sm-1'>";
       //create checkbox for each route
@@ -42,7 +42,7 @@ function readRoutes() {
     });
 
     //insert created content
-    $('#routesDisplay').html(content);
+    $('#results').html(content);
   });
 }
 
@@ -56,7 +56,7 @@ function displayRoute(index) {
   var id = "route";
   id += index;
   if(document.getElementById(id).checked) {
-  var LatLon = turnLatLon(routesArray[index].features[0].geometry.coordinates);
+  var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
   var line = L.polyline(LatLon, {color: "red", weight: 3});
   line.addTo(map);
   map.fitBounds(line.getBounds());
