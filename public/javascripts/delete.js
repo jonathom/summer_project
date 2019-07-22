@@ -18,9 +18,6 @@ function showRoutes() {
     $.each(data, function(index) {
       console.log(this);
       console.log(this._id);
-      //TODO get json to function or write email
-      //TODO work on post and on rest of assignment
-      //console.log(this.features[0].geometry.coordinates[3]);
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
       tableContent += '<td>' + this.name + '</td>';
