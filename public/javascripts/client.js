@@ -4,11 +4,11 @@
 //save created routeViews to reference them when deleted
 var routesToDelete = [];
 // add map
-var start_latlng = [52.7, 4.3];
+var start_latlng = [51, 10.4];
 
 var map = L.map("mapdiv").setView(start_latlng, 6);
 
-var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
   maxZoom: 18,
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors",
   id: "osm"

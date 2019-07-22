@@ -8,7 +8,7 @@ var start_latlng = [34.2, 24.6];
 
 var map = L.map("mapdiv").setView(start_latlng, 10);
 
-var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png ", {
   maxZoom: 18,
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors",
   id: "osm"
@@ -16,11 +16,11 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 //add routing control
 L.Routing.control({
-  waypoints: [
-    L.latLng(51.969102, 7.596029),
-    L.latLng(51.965256, 7.600203)
-  ],
-  routeWhileDragging: true,
+    waypoints: [
+        L.latLng(50.273147, 7.968092),
+        L.latLng(50.268518, 7.980409)
+    ],
+    routeWhileDragging: true,
 })
 //upon a route change..
 .on("routesfound", function(e) {
@@ -82,6 +82,8 @@ function createRouteButton() {
 
   var newRoute = document.getElementById("GeoJson").value;
   var addAttr = JSON.parse(newRoute);
+  addAttr.creator = document.getElementById("routeCreator").value;
+  addAttr.type = document.getElementById("routeType").value;
   addAttr.name = document.getElementById("routeName").value;
   addAttr.routeType = document.querySelector('input[name="routeType"]:checked').value;
   addAttr.username = document.getElementById("routeUsername").value;

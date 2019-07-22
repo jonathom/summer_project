@@ -18,12 +18,14 @@ function showRoutes() {
     $.each(data, function(index) {
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
+      tableContent += '<td>' + this.creator + '</td>';
+      tableContent += '<td>' + this.type + '</td>';
       tableContent += '<td>' + this.name + '</td>';
       tableContent += '<td>' + this.routeType + '</td>';
       tableContent += '<td>' + this.username + '</td>';
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '<td>' + this.desc + '</td>';
-      tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">edit</a></td>';
+      tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">Edit</a></td>';
       tableContent += '</tr>';
     });
 
@@ -38,12 +40,14 @@ function editRoute(event) {
   var id = $(this).attr('rel');
   var tableContent = "";
   tableContent += '<tr>';
+  tableContent += '<td>' + '<input type="text" id="newCreator" value="' + routesArray[id].creator + '"></input>' + '</td>';
+  tableContent += '<td>' + '<input type="text" id="newType" value="' + routesArray[id].type + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newName" value="' + routesArray[id].name + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newType" value="' + routesArray[id].routeType + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newUsername" value="' + routesArray[id].username + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDate" value="' + routesArray[id].date + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDesc" value="' + routesArray[id].desc + '"></input>' + '</td>';
-  tableContent += '<td>' + '<td><a href="#" class="linkputroute" rel="' + routesArray[id]._id + '">submit</a></td>';
+  tableContent += '<td>' + '<td><a href="#" class="linkputroute" rel="' + routesArray[id]._id + '">Submit</a></td>';
   console.log(routesArray[id]._id);
   tableContent += '</tr>';
 
@@ -53,6 +57,8 @@ function editRoute(event) {
 
 function putRoute(event) {
   var newRoute = routesArray[id];
+  newRoute.creator = document.getElementById("newCreator").value;
+  newRoute.type = document.getElementById("newType").value;
   newRoute.name = document.getElementById("newName").value;
   newRoute.routeType = document.getElementById("newType").value;
   newRoute.username = document.getElementById("newUsername").value;
