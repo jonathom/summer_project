@@ -1,0 +1,14 @@
+<style>
+body{
+}
+#footer{
+    position: fixed;
+    bottom:0;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+#mapdiv{ height: 740px; width: 100%; align-content: center;}
+
+
+</style>
