@@ -61,12 +61,6 @@ function readRoutes() {
 
     $('#resultTable').html(tableContent);
   });
-
-  console.log("hello");
-  for(let j = 0; j < routesJSON.length; j++) {
-    console.log(routesJSON[j]);
-  }
-
 }
 
 /**
