@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <!-- include osm -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
@@ -15,11 +14,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/project.css">
+
+    <link rel="stylesheet" href="/javascripts\leaflet-routing-machine-3.2.12\dist\leaflet-routing-machine.css" />
+
+
   </head>
 
   <body>
     <!-- navbar -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -28,7 +32,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-          <a class="navbar-brand" href="#">Assignment 7</a>
+            <a class="navbar-brand" href="/">Summer Project</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
@@ -36,15 +40,17 @@
             <li class="active"><a href="/create">Create Route</a></li>
             <li><a href="/update">Update Route</a></li>
             <li><a href="/delete">Delete Route</a></li>
-            <li><a href="/polygon">Polygon</a></li>
-            <li><a href="/network">Network Analysis</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="author">Jonathan Bahlmann</a></li>
-          </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                     </form>
+                    </ul>
         </div>
       </div>
     </nav>
+
 
     <div class="container-fluid">
        <div class="row">
@@ -53,6 +59,12 @@
          </div>
          <div class="col-sm-6">
            <form id="createRouteForm" >
+             <input type="text" id="routeCreator"> Creator</input>
+             <br>
+             <br>
+             <input type="text" id="routeType"> Type</input>
+             <br>
+             <br>
              <input type="text" id="GeoJson"> GeoJson</input>
              <br>
              <br>
@@ -70,9 +82,22 @@
       </div>
     </div>
 
+    <!-- footer -->
+
+    <div id="footer">
+        <div class="container">
+
+                <div class="row">
+                <p><center><a href="/author">Author Contacts</a> <p class="footertext">© 2019</p></center></p>
+            </div>
+        </div>
+    </div>
+
      <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
      <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="/javascripts/create.js"></script>
+    <script src="/javascripts\leaflet-routing-machine-3.2.12\dist\leaflet-routing-machine.js"></script>
+
   </body>
 </html>
