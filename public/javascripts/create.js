@@ -1,3 +1,4 @@
+'esversion: 6';
 // on DOM ready
 $(document).ready(function() {
   fillDate();
@@ -65,7 +66,14 @@ function toGeoJson(coordinates) {
 
 function fillDate() {
   var now = new Date();
-  now.toISOString().substring(0, 10);
+  now.toISOString();
+  //.substring(0, 10);
+  let year = now.getFullYear();
+  let month = '' + (now.getMonth() + 1);
+  if(month.length < 2) { month = '0' + month; }
+  let day = '' + now.getDate();
+  if(day.length < 2) { day = '0' + day; }
+  now = day+'-'+month+'-'+year;
   document.getElementById("routeDate").value = now;
 }
 
@@ -77,12 +85,11 @@ function createRouteButton() {
   addAttr.creator = document.getElementById("routeCreator").value;
   addAttr.type = document.getElementById("routeType").value;
   addAttr.name = document.getElementById("routeName").value;
+  addAttr.routeType = document.querySelector('input[name="routeType"]:checked').value;
+  addAttr.username = document.getElementById("routeUsername").value;
   addAttr.date = document.getElementById("routeDate").value;
   addAttr.desc = document.getElementById("routeDesc").value;
   var newRouteString = JSON.stringify(addAttr);
-  //newRoute.properties.name = document.getElementById("inputName").value;
-  //newRoute.properties.time = document.getElementById("inputTime").value;
-  //newRoute.properties.date = document.getElementById("inputDate").value;
 
   //post
   $.ajax({
