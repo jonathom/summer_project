@@ -41,7 +41,6 @@ function readRoutes() {
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '</tr>';
 
-
       /* create simple route view as col-sm-1
        * this is an old solution
       content += "<div id='"+index+"' class='col-sm-1'>";
@@ -62,6 +61,12 @@ function readRoutes() {
 
     $('#resultTable').html(tableContent);
   });
+
+  console.log("hello");
+  for(let j = 0; j < routesJSON.length; j++) {
+    console.log(routesJSON[j]);
+  }
+
 }
 
 /**
