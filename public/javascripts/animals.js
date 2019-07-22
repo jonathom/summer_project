@@ -1,3 +1,4 @@
+// jshint esversion: 6
 var jsonUrl = "https://www.movebank.org/movebank/service/json-auth";
 var study_id = document.getElementById('idInput').value; // !! add the Movebank ID for your study, available in the Study Details
 var individual_local_identifiers = [document.getElementById('individualInput').value]; // !! add the exact Animal IDs for the animals in the study that you want to show on the map
@@ -6,9 +7,9 @@ var individual_local_identifiers = [document.getElementById('individualInput').v
 $.getJSON(jsonUrl + "?callback=?", {
     study_id: study_id,
     individual_local_identifiers: individual_local_identifiers,
-    max_events_per_individual : '100',
-    // timestamp_start: timestamp_start, // !! enable to limit data display to a time range
-    // timestamp_end: timestamp_end, // !! enable to limit data display to a time range
+    //max_events_per_individual : '100',
+    // timestamp_start: timestamp_start,
+    // timestamp_end: timestamp_end,
     sensor_type: "gps" // !! change if needed to specify the sensor type to display; options are gps, argos-doppler-shift, solar-geolocator, radio-transmitter, bird-ring, natural-mark
 }, function (data0) {
     data = data0;
@@ -23,7 +24,7 @@ $.getJSON(jsonUrl + "?callback=?", {
       point.push(lat);
       coordinates.push(point);
     }
-
+    console.log(coordinates.length);
     document.getElementById("GeoJson").value = JSON.stringify(toGeoJson(coordinates));
     document.getElementById("routeUsername").value = data0.individuals[0].individual_local_identifier;
     document.getElementById("routeDesc").value = data0.individuals[0].individual_taxon_canonical_name + ", study_id: " + data0.individuals[0].study_id;

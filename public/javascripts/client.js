@@ -1,4 +1,4 @@
-'esversion: 6';
+// jshint esversion: 6
 // Assignment 07 // Jonathan Bahlmann // 453 524
 
 //save created routeViews to reference them when deleted

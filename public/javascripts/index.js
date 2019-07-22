@@ -1,4 +1,4 @@
-'esversion: 6';
+// jshint esversion: 6
 // Assignment 05 // Jonathan Bahlmann // 453 524
 
 // add map
