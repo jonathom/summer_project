@@ -1,4 +1,4 @@
-'esversion: 6';
+// jshint esversion: 6
 // Assignment 07 // Jonathan Bahlmann // 453 524
 
 //save created routeViews to reference them when deleted
@@ -30,19 +30,36 @@ function readRoutes() {
   //get JSON from DB
   $.getJSON('/users/routes', function(data) {
     routesJSON = data;
+    var tableContent ='';
     $.each(data, function(index) {
+      tableContent += '<tr>';
+      var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
+      tableContent += '<td>' + checkbox + '</td>';
+      tableContent += '<td>' + this.name + '</td>';
+      tableContent += '<td>' + this.routeType + '</td>';
+      tableContent += '<td>' + this.username + '</td>';
+      tableContent += '<td>' + this.date + '</td>';
+      tableContent += '</tr>';
+
+      /* create simple route view as col-sm-1
+       * this is an old solution
       content += "<div id='"+index+"' class='col-sm-1'>";
       //create checkbox for each route
       var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
       var label = "<label for='route"+index+"'>route"+index+"</label>";
+      label += this.username;
 
       content += checkbox;
       content += label;
       content += "</div>";
+      */
     });
 
-    //insert created content
+    /*insert created content
     $('#results').html(content);
+    */
+
+    $('#resultTable').html(tableContent);
   });
 }
 
@@ -53,6 +70,7 @@ function readRoutes() {
   * @author Jonathan Bahlmann
   */
 function displayRoute(index) {
+  console.log("displayRoute "+index);
   var id = "route";
   id += index;
   if(document.getElementById(id).checked) {

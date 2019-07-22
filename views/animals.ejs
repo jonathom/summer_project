@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <!-- include osm -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
@@ -16,6 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/project.css">
+
+    <link rel="stylesheet" href="/javascripts\leaflet-routing-machine-3.2.12\dist\leaflet-routing-machine.css" />
+
 
   </head>
 
@@ -34,8 +36,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Start</a></li>
-            <li><a href="/create">Create Route</a></li>
+            <li><a href="/">Start</a></li>
+            <li class="active"><a href="/create">Create Route</a></li>
             <li><a href="/update">Update Route</a></li>
             <li><a href="/delete">Delete Route</a></li>
           </ul>
@@ -49,46 +51,36 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div id="mapdiv" style="width: 100%; height: 500px;" ;></div>
-    </div>
-
-<!--    <div class="container-fluid">
-      <h4>Route selection</h4>
-    </div>
-    <div class="container-fluid">
-      <div id="results" class="row"></div>
-    </div> -->
 
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-4">
-          <h4>Route selection</h4>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Username</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody id="resultTable">
-
-            </tbody>
-          </table>
-        </div>
-        <div class="col-sm-4">
-          <h4>Animal tracks?</h4>
-        </div>
-        <div class="col-sm-4">
-          <h4>Meeting Points</h4>
+       <div class="row">
+         <div class="col-sm-6">
+           <form id="createRouteForm" >
+             <input type="text" id="GeoJson"> GeoJson</input>
+             <br>
+             <br>
+             <input type="text" id="routeName"> Name of Route</input>
+             <br>
+             <br>
+             <input type="text" id="routeType"> Type of Route</input>
+             <br>
+             <br>
+             <input type="text" id="routeUsername"> Username</input>
+             <br>
+             <br>
+             <input type="text" id="routeDate"> Time</input>
+             <br>
+             <br>
+             <input type="text" id="routeDesc"> Description</input>
+           </form>
+           <br><br>
+           <button type="button" onclick="buttonAddAnimal()">create Route</button>
         </div>
       </div>
     </div>
-
-    <script src="/javascripts/client.js"></script>
+    <input type="text" id="idInput">idInput__11017705</input>
+    <input type="text" id="individualInput">individualInput__41722A</input>
+    <textarea type="text" id="JSONresponse"></textarea>
 
     <!-- footer -->
 
@@ -101,6 +93,8 @@
         </div>
     </div>
 
-    <script src="/javascripts/client.js"></script>
+
+    <script src="/javascripts/animals.js"></script>
+
   </body>
 </html>

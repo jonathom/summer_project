@@ -27,5 +27,10 @@ router.get('/update', function(req, res, next) {
   res.render('update', { title: 'Update Route'});
 });
 
+/* GET animals API site */
+router.get('/animals', function(req, res, next) {
+  res.render('animals', { title: 'Animals API'});
+});
+
 
 module.exports = router;

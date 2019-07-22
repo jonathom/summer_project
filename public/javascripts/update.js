@@ -1,3 +1,4 @@
+// jshint esversion: 6
 // tutorial
 // routes array to store JSON data
 var routesArray = [];
