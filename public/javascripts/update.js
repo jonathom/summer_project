@@ -19,6 +19,8 @@ function showRoutes() {
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
       tableContent += '<td>' + this.name + '</td>';
+      tableContent += '<td>' + this.routeType + '</td>';
+      tableContent += '<td>' + this.username + '</td>';
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '<td>' + this.desc + '</td>';
       tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">edit</a></td>';
@@ -37,6 +39,8 @@ function editRoute(event) {
   var tableContent = "";
   tableContent += '<tr>';
   tableContent += '<td>' + '<input type="text" id="newName" value="' + routesArray[id].name + '"></input>' + '</td>';
+  tableContent += '<td>' + '<input type="text" id="newType" value="' + routesArray[id].routeType + '"></input>' + '</td>';
+  tableContent += '<td>' + '<input type="text" id="newUsername" value="' + routesArray[id].username + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDate" value="' + routesArray[id].date + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDesc" value="' + routesArray[id].desc + '"></input>' + '</td>';
   tableContent += '<td>' + '<td><a href="#" class="linkputroute" rel="' + routesArray[id]._id + '">submit</a></td>';
@@ -50,6 +54,8 @@ function editRoute(event) {
 function putRoute(event) {
   var newRoute = routesArray[id];
   newRoute.name = document.getElementById("newName").value;
+  newRoute.routeType = document.getElementById("newType").value;
+  newRoute.username = document.getElementById("newUsername").value;
   newRoute.date = document.getElementById("newDate").value;
   newRoute.desc = document.getElementById("newDesc").value;
   console.log(newRoute._id);

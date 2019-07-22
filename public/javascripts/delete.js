@@ -24,6 +24,8 @@ function showRoutes() {
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
       tableContent += '<td>' + this.name + '</td>';
+      tableContent += '<td>' + this.routeType + '</td>';
+      tableContent += '<td>' + this.username + '</td>';
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '<td>' + this.desc + '</td>';
       tableContent += '<td><a href="#" class="linkdeleteroute" rel="' + this._id + '">delete</a></td>';
