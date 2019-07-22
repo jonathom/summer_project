@@ -66,8 +66,6 @@ function toGeoJson(coordinates) {
 
 function fillDate() {
   var now = new Date();
-  now.toISOString();
-  //.substring(0, 10);
   let year = now.getFullYear();
   let month = '' + (now.getMonth() + 1);
   if(month.length < 2) { month = '0' + month; }
