@@ -23,7 +23,7 @@ function showRoutes() {
       tableContent += '<td>' + this.username + '</td>';
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '<td>' + this.desc + '</td>';
-      tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">edit</a></td>';
+      tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">Edit</a></td>';
       tableContent += '</tr>';
     });
 
@@ -43,7 +43,7 @@ function editRoute(event) {
   tableContent += '<td>' + '<input type="text" id="newUsername" value="' + routesArray[id].username + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDate" value="' + routesArray[id].date + '"></input>' + '</td>';
   tableContent += '<td>' + '<input type="text" id="newDesc" value="' + routesArray[id].desc + '"></input>' + '</td>';
-  tableContent += '<td>' + '<td><a href="#" class="linkputroute" rel="' + routesArray[id]._id + '">submit</a></td>';
+  tableContent += '<td>' + '<td><a href="#" class="linkputroute" rel="' + routesArray[id]._id + '">Submit</a></td>';
   console.log(routesArray[id]._id);
   tableContent += '</tr>';
 

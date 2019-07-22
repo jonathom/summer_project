@@ -21,19 +21,11 @@ router.get('/delete', function(req, res, next) {
   res.render('delete', { title: 'Delete Route'});
 });
 
-/* GET polygon site */
-router.get('/polygon', function(req, res, next) {
-  res.render('polygon', { title: 'Create Polygon'});
-});
 
 /* GET update site */
 router.get('/update', function(req, res, next) {
   res.render('update', { title: 'Update Route'});
 });
 
-/* GET network site */
-router.get('/network', function(req, res, next) {
-  res.render('network', { title: 'Network Analysis'});
-});
 
 module.exports = router;
