@@ -42,28 +42,41 @@ var intersects = turf.lineIntersect(l1, l2);
 // for each intersection
 for(let i = 0; intersects.features[i]; i++){
 var meetingPoint = (intersects.features[i].geometry.coordinates);
-console.log(meetingPoint);
 // switch lat and long for display on leaflet
 [meetingPoint[0], meetingPoint[1]] = [meetingPoint[1], meetingPoint[0]];
-
+var lat = meetingPoint[0];
+var longit = meetingPoint[1];
 console.log(meetingPoint);
 
+var apiKey = '21381ccbb60531b0ec9d57038076849a';
+var weatherOutput = getWeather(lat, longit);
+// console.log(weatherOutput1);
+
+
+//JSON.stringify(weatherOutput);
 //And place them as a marker on the map
-placeMarker(meetingPoint, firstName, firstType, secondName, secondType);
-
+placeMarker(meetingPoint, firstName, firstType, secondName, secondType, weatherOutput);
+console.log(weatherOutput);
 
 }
 }
 
-function checkEntcounter(vFirstName, vFirstType, vSecondName, vSecondtype){
+function getWeather(lat, longit){
+  var weatherOutput1;
 
-  if(vFirstName == vSecondName && vFirstType == vSecondtype){
-       markerList = "You encounterd yourself. Congrats!";
-       console.log(markerList);
-       return markerList;
+  $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + longit + "&appid=" + "21381ccbb60531b0ec9d57038076849a", function(data) {
+    var temperature = data.main.temp;
+    var toCelsius = 273.1;
+    temperature = temperature - toCelsius;
 
-  }
+    temperature = Math.round(temperature*10)/10;
+     weatherOutput1  = data.weather[0].description+", "+temperature+"°C";
+     document.getElementById("JSONresponse").value = weatherOutput1;
 
+   //console.log(weatherOutput);
+});
+return weatherOutput1;
+console.log(weatherOutput1);
 }
 
 
@@ -72,7 +85,7 @@ function checkEntcounter(vFirstName, vFirstType, vSecondName, vSecondtype){
 * @param coordi The coordinates
 * @author Benjamin Rieke 408743"<table>
 */
-function placeMarker(coordi, vFirstName, vFirstType, vSecondName, vSecondtype){
+function placeMarker(coordi, vFirstName, vFirstType, vSecondName, vSecondtype, vWeather){
 var markerList = '';
 //If you have two planned routes that intersect
 if(vFirstName == vSecondName && vFirstType == vSecondtype && vFirstType == 'planned'){
@@ -127,13 +140,21 @@ console.log(markerList);
 if(vFirstType == 'completed' && vSecondtype == 'animal'){
 markerList = "You walked on the same paths as " +  vSecondName+"! An Animal! How wonderful!" ;
 console.log(markerList);
-}
+  }
+  console.log(vWeather);
+/*
+  var temperature = vWeather.main.temp;
+  var toCelsius = 273.1;
+  var finalWeather;
+    temperature = temperature - toCelsius;
 
+    temperature = Math.round(temperature*10)/10;
+     finalWeather  = vWeather.weather[0].description+", "+temperature+"°C";
+
+*/
 L.marker(coordi).addTo(map)
- .bindPopup(markerList);
+ .bindPopup(markerList + vWeather +'<button type="button" onclick="createRouteButton()" class="btn btn-dark">Share</button>');
  console.log(coordi);
-//  var markerList =
-//"<table><tr><td>Name of the route</td><td>Type of the route</td></tr><tr><td>" + vFirstName +"</td><td>" +vFirstType +" </td></tr><tr><td>"+ vSecondName +"</td><td>"+ vSecondtype+ "</td></tr> </table>"
 
 
 }
