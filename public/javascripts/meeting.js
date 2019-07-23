@@ -17,7 +17,8 @@ $.getJSON('/users/routes', function(data) {
 
 /**
   * @desc Checks if two choosen routes are intersecting eachother
-  * Uses turf.js https://turfjs.org/
+  * Uses turf.js
+  * @see https://turfjs.org/
   * @author Benjamin Rieke 408743
   */
 function lineStringsIntersect() {
