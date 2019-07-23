@@ -8,14 +8,19 @@
   "dependencies": {
     "@turf/line-intersect": "^6.0.2",
     "@turf/turf": "^5.1.6",
+    "bootstrap": "^4.3.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "git": "^0.1.5",
     "http-errors": "~1.6.3",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.5.1",
     "mongodb": "^3.2.7",
     "morgan": "~1.9.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "popper": "^1.0.1",
+    "popper.js": "^1.15.0"
   }
 }

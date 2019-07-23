@@ -1,4 +1,4 @@
-// jshint esversion: 6/
+// jshint esversion: 6
 
 //do two routes meet?
 
@@ -17,7 +17,8 @@ $.getJSON('/users/routes', function(data) {
 
 /**
   * @desc Checks if two choosen routes are intersecting eachother
-  * Uses turf.js https://turfjs.org/
+  * Uses turf.js
+  * @see https://turfjs.org/
   * @author Benjamin Rieke 408743
   */
 function lineStringsIntersect() {
@@ -61,6 +62,8 @@ console.log(weatherOutput);
 }
 }
 
+
+=======
 function getWeather(lat, longit){
   var weatherOutput1;
 
@@ -83,7 +86,7 @@ console.log(weatherOutput1);
 /**
 * @desc Places a Marker on the map
 * @param coordi The coordinates
-* @author Benjamin Rieke 408743"<table>
+* @author Benjamin Rieke 408743
 */
 function placeMarker(coordi, vFirstName, vFirstType, vSecondName, vSecondtype, vWeather){
 var markerList = '';
