@@ -6,18 +6,8 @@
 
     <title><%= title %></title>
 
-    <!-- include osm
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
-    -->
-
-    <!-- include bootstrap
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <!--
     <link rel="stylesheet" type="text/css" href="css/project.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="leaflet/leaflet.css"/>
     <script src="leaflet/leaflet.js"></script>
 
@@ -25,32 +15,19 @@
   </head>
 
   <body>
-    <!-- navbar -->
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Summer Project</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Start</a></li>
-            <li class="active"><a href="/create">Create Route</a></li>
-            <li><a href="/animals">Animal Routes</a></li>
-            <li><a href="/update">Update Route</a></li>
-            <li><a href="/delete">Delete Route</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <form class="form-inline mt-2 mt-md-0">
-                       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                     </form>
-                    </ul>
+    <!-- new Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Summer Project</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/">Start</a>
+          <a class="nav-item nav-link active" href="/create">Create Route</a>
+          <a class="nav-item nav-link" href="/animals">Animal Routes</a>
+          <a class="nav-item nav-link" href="/update">Update Routes</a>
+          <a class="nav-item nav-link" href="/delete">Delete Routes</a>
         </div>
       </div>
     </nav>
