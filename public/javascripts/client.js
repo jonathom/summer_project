@@ -2,6 +2,8 @@
 // Assignment 07 // Jonathan Bahlmann // 453 524
 
 //save created routeViews to reference them when deleted
+
+
 var routesToDelete = [];
 // add map
 var start_latlng = [51, 10.4];
@@ -21,7 +23,9 @@ var routesJSON = [];
 // on DOM ready
 $(document).ready(function() {
   readRoutes();
+
 });
+
 
 //read routes
 function readRoutes() {
@@ -63,17 +67,23 @@ function readRoutes() {
   });
 }
 
-/**
-  * quick display routes function
-  * handles the 'checked' Attribute of the checkboxes and shows/deletes the indexed route
-  * @param index of route to show/deletes
-  * @author Jonathan Bahlmann
-  */
+
 function displayRoute(index) {
   console.log("displayRoute "+index);
   var id = "route";
   id += index;
+  var first = document.getElementById("outputRoute1")
   if(document.getElementById(id).checked) {
+  if (typeof first !== "undefined" && first.value == '') {
+    document.getElementById("outputRoute1").value=JSON.stringify(routesJSON[index]);
+  }
+  else {
+    document.getElementById("outputRoute2").value=JSON.stringify(routesJSON[index]);
+
+
+  }
+
+
   var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
   var line = L.polyline(LatLon, {color: "red", weight: 3});
   line.addTo(map);
