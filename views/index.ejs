@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
 
     <!-- include osm -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
@@ -84,6 +83,11 @@
         </div>
         <div class="col-sm-4">
           <h4>Meeting Points</h4>
+          <textarea type="text" id="outputRoute1"></textarea>
+          <textarea type="text" id="outputRoute2"></textarea>
+
+           <button class="btn btn-outline-success my-2 my-sm-0" onclick="lineStringsIntersect()">Check for meetings</button>
+
         </div>
       </div>
     </div>
@@ -102,5 +106,8 @@
     </div>
 
     <script src="/javascripts/client.js"></script>
+    <script src="/javascripts/meeting.js"></script>
+    <script src="/javascripts/turf.min.js"></script>
+
   </body>
 </html>
