@@ -17,6 +17,7 @@
     "http-errors": "~1.6.3",
     "jquery": "^3.4.1",
     "leaflet": "^1.5.1",
+    "leaflet-routing-machine": "^3.2.12",
     "mongodb": "^3.2.7",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",

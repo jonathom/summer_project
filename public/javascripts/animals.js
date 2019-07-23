@@ -1,9 +1,13 @@
-// jshint esversion: 6
-var jsonUrl = "https://www.movebank.org/movebank/service/json-auth";
-var study_id = document.getElementById('idInput').value; // !! add the Movebank ID for your study, available in the Study Details
-var individual_local_identifiers = [document.getElementById('individualInput').value]; // !! add the exact Animal IDs for the animals in the study that you want to show on the map
 
-
+/**
+* @desc Loads the routes and informations for a chosen study and animal
+* @author Benjamin Rieke 408743
+*/
+function loadStudy(){
+  // jshint esversion: 6
+  var jsonUrl = "https://www.movebank.org/movebank/service/json-auth";
+  var study_id = document.getElementById('idInput').value; // !! add the Movebank ID for your study, available in the Study Details
+  var individual_local_identifiers = [document.getElementById('individualInput').value]; // !! add the exact Animal IDs for the animals in the study that you want to show on the map
 $.getJSON(jsonUrl + "?callback=?", {
     study_id: study_id,
     individual_local_identifiers: individual_local_identifiers,
@@ -42,6 +46,7 @@ $.getJSON(jsonUrl + "?callback=?", {
     document.getElementById("routeName").value = data0.individuals[0].individual_taxon_canonical_name + " at " + timestamp;
 
 });
+}
 
 /**
   * converts an array of coordinates into a LineString in GeoJSON format

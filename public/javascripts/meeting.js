@@ -3,7 +3,7 @@
 //do two routes meet?
 
 /**
-  * function getAllRoutes is button response function for calculate meetings button
+  *@desc  function getAllRoutes is button response function for calculate meetings button
   * gets JSON routes from db
   * calls next function
   * @author Jonathan Bahlmann
@@ -22,6 +22,11 @@ function getAllRoutes() {
 
 var meetingPointsArray = [];
 
+/**
+  * @desc Initializes the comparison of all routes with a chosen route
+  * @param allRoutes All routes that are currently in the database
+  * @author Jonathan Bahlmann
+  */
 function checkForMeetings(allRoutes) {
   //allRoutes is array with route-strings in JSON format
   //get firstLine from input textarea
@@ -43,6 +48,8 @@ var meetingsArray = [];
   * @desc Checks if two choosen routes are intersecting eachother
   * Uses turf.js
   * @see https://turfjs.org/
+  * @param firstLine The chosen route that gets checked for intersections
+  * @param secondLine Another route that gets checked for intersections with the first one
   * @author Benjamin Rieke 408743
   */
 function lineStringsIntersect(firstLine, secondLine) {
@@ -51,6 +58,7 @@ function lineStringsIntersect(firstLine, secondLine) {
   //lines geometry
   var l1 = JSON.parse(firstLine);
   var l2 = JSON.parse(secondLine);
+  //console.log(l1);
 
   //GeoJSON of intersections
   var intersects = turf.lineIntersect(l1.features[0].geometry, l2.features[0].geometry);
@@ -61,9 +69,9 @@ function lineStringsIntersect(firstLine, secondLine) {
     intersects.features[i].properties.secondUsername = l2.username;
     intersects.features[i].properties.firstID = l1._id;
     intersects.features[i].properties.secondID = l2._id;
-    intersects.features[i].properties.firstType = l1.type;
-    intersects.features[i].properties.secondType = l2.type;
-    console.log(JSON.stringify(intersects.features[i]));
+    intersects.features[i].properties.firstType = l1.routeType;
+    intersects.features[i].properties.secondType = l2.routeType;
+    //console.log(JSON.stringify(intersects.features[i]));
     var meetingPoint = (intersects.features[i].geometry.coordinates);
     // switch lat and long for display on leaflet
     intersects.features[i].geometry.coordinates = [meetingPoint[1], meetingPoint[0]];
@@ -74,10 +82,7 @@ function lineStringsIntersect(firstLine, secondLine) {
 
     xhrGetWeather(thisPoint.geometry.coordinates[0], thisPoint.geometry.coordinates[1], handleWeather, thisPoint);
 
-    //JSON.stringify(weatherOutput);
-    //And place them as a marker on the map
-    //placeMarker(thisPoint.geometry.coordinates, thisPoint.firstuserName, thisPoint.firstType, thisPoint.secondserName, thisPoint.secondType, xhrGetWeather);
-    //console.log(weatherOutput);
+
   }
 }
 
@@ -120,16 +125,16 @@ function handleWeather(xhttp, meetingPoint) {
   temperature = temperature - toCelsius;
   temperature = Math.round(temperature*10)/10;
   let wString = '';
-  wString += weatherXML.weather[0].description + ',' + temperature + '°C';
+  wString += weatherXML.weather[0].description + ', ' + temperature + '°C';
 
-  var n1 = JSON.stringify(meetingPoint.properties.firstUsername);
-  var n2 = JSON.stringify(meetingPoint.properties.secondUsername);
-  var t1 = JSON.stringify(meetingPoint.properties.firstType);
-  var t2 = JSON.stringify(meetingPoint.properties.secondType);
+  var n1 = meetingPoint.properties.firstUsername;
+  var n2 = meetingPoint.properties.secondUsername;
+  var t1 = meetingPoint.properties.firstType;
+  var t2 = meetingPoint.properties.secondType;
 //TODO type ist featureCollection
-  console.log(t2);
+  console.log(t1);
 
-  placeMarker(meetingPoint.geometry.coordinates, n1, n2, t1, t2, wString);
+  placeMarker(meetingPoint.geometry.coordinates, n1, t1, n2, t2, wString);
 
 }
 
@@ -137,6 +142,11 @@ function handleWeather(xhttp, meetingPoint) {
 /**
 * @desc Places a Marker on the map
 * @param coordi The coordinates
+* @param vFirstName The name of the user of the first route
+* @param vFirstType The type of the first route (completed or planned)
+* @param vSecondName The name of the user of the second route
+* @param vSecondType The type of the second route (completed or planned)
+* @param vWeather An object that contains informations about the weather
 * @author Benjamin Rieke 408743
 */
 function placeMarker(coordi, vFirstName, vFirstType, vSecondName, vSecondType, vWeather){
@@ -178,7 +188,7 @@ console.log(markerList);
 // If your route intersected with somebody elses who has not completed it
 
 if(vFirstName != vSecondName && vFirstType == 'completed' && vFirstType !=vSecondType){
-markerList = "Your completed route might be intersected by " +  vSecondName+". Tell him if you liked it!";
+markerList = "Your completed route might be intersected by " +  vSecondName+".Tell him if you liked it!";
 console.log(markerList);
 }
 
@@ -192,11 +202,11 @@ console.log(markerList);
 // If you were on the same path as an animal
 
 if(vFirstType == 'completed' && vSecondType == 'animal'){
-markerList = "You walked on the same paths as " +  vSecondName+"! An Animal! How wonderful!" ;
+markerList = "You walked on the same paths as " +  vSecondName+"!  An Animal! How wonderful!" ;
 console.log(markerList);
 }
-
+console.log(vFirstType);
 L.marker(coordi).addTo(map)
- .bindPopup(markerList + vWeather +'<br><button type="button" onclick="createRouteButton()" class="btn btn-dark">Share</button>');
+ .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather +'<br>  <button type="button" onclick="createRouteButton()" class="btn btn-dark">Share</button>');
 
 }
