@@ -71,24 +71,16 @@ function displayRoute(index) {
   console.log("displayRoute "+index);
   var id = "route";
   id += index;
-  var first = document.getElementById("outputRoute1")
   if(document.getElementById(id).checked) {
-  if (typeof first !== "undefined" && first.value == '') {
-    document.getElementById("outputRoute1").value=JSON.stringify(routesJSON[index]);
-  }
-  else {
-    document.getElementById("outputRoute2").value=JSON.stringify(routesJSON[index]);
+    //put into routeInQuestion textarea
+    document.getElementById("routeInQuestion").value = JSON.stringify(routesJSON[index]);
 
-
-  }
-
-
-  var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
-  var line = L.polyline(LatLon, {color: "red", weight: 3});
-  line.addTo(map);
-  map.fitBounds(line.getBounds());
-  //insert into 'memory' array
-  routesToDelete[index] = line;
+    var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
+    var line = L.polyline(LatLon, {color: "red", weight: 3});
+    line.addTo(map);
+    map.fitBounds(line.getBounds());
+    //insert into 'memory' array
+    routesToDelete[index] = line;
   }
   else {
     console.log("remove");
