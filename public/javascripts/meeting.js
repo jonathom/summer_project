@@ -62,8 +62,6 @@ console.log(weatherOutput);
 }
 }
 
-
-=======
 function getWeather(lat, longit){
   var weatherOutput1;
 
