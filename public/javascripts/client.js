@@ -29,7 +29,6 @@ $(document).ready(function() {
 
 //read routes
 function readRoutes() {
-  var content = "";
 
   //get JSON from DB
   $.getJSON('/users/routes', function(data) {

@@ -6,17 +6,20 @@
 
     <title><%= title %></title>
 
-    <!-- include osm -->
+    <!-- include osm
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    -->
 
-    <!-- include bootstrap -->
+    <!-- include bootstrap
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--
     <link rel="stylesheet" type="text/css" href="css/project.css">
-
-    <link rel="stylesheet" href="/javascripts\leaflet-routing-machine-3.2.12\dist\leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="leaflet/leaflet.css"/>
+    <script src="leaflet/leaflet.js"></script>
 
 
   </head>
@@ -38,6 +41,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Start</a></li>
             <li class="active"><a href="/create">Create Route</a></li>
+            <li><a href="/animals">Animal Routes</a></li>
             <li><a href="/update">Update Route</a></li>
             <li><a href="/delete">Delete Route</a></li>
           </ul>
@@ -84,19 +88,14 @@
     </div>
 
     <!-- footer -->
+    <footer class="page-footer font-small">
+        <p><center><a href="/author">Author Contacts</a> <p class="footertext">© 2019</p></center></p>
+    </footer>
 
-    <div id="footer">
-        <div class="container">
+    <script src="jquery/jquery.js"></script>
+    <script src="popper/umd/popper.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
 
-                <div class="row">
-                <p><center><a href="/author">Author Contacts</a> <p class="footertext">© 2019</p></center></p>
-            </div>
-        </div>
-    </div>
-
-     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="/javascripts/create.js"></script>
     <script src="/javascripts\leaflet-routing-machine-3.2.12\dist\leaflet-routing-machine.js"></script>
 

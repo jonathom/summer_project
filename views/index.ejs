@@ -6,15 +6,20 @@
 
     <title><%= title %></title>
 
-    <!-- include osm -->
+    <!-- include osm
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    -->
 
-    <!-- include bootstrap -->
+    <!-- include bootstrap
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--
     <link rel="stylesheet" type="text/css" href="css/project.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="leaflet/leaflet.css"/>
+    <script src="leaflet/leaflet.js"></script>
 
   </head>
 
@@ -35,6 +40,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Start</a></li>
             <li><a href="/create">Create Route</a></li>
+            <li><a href="/animals">Animal Routes</a></li>
             <li><a href="/update">Update Route</a></li>
             <li><a href="/delete">Delete Route</a></li>
           </ul>
@@ -51,13 +57,6 @@
     <div class="container-fluid">
       <div id="mapdiv" style="width: 100%; height: 500px;" ;></div>
     </div>
-
-<!--    <div class="container-fluid">
-      <h4>Route selection</h4>
-    </div>
-    <div class="container-fluid">
-      <div id="results" class="row"></div>
-    </div> -->
 
     <div class="container-fluid">
       <div class="row">
@@ -93,16 +92,19 @@
       </div>
     </div>
 
-    <script src="/javascripts/client.js"></script>
-
     <!-- footer -->
     <footer class="page-footer font-small">
         <p><center><a href="/author">Author Contacts</a> <p class="footertext">© 2019</p></center></p>
     </footer>
 
+    <script src="jquery/jquery.js"></script>
+    <script src="popper/umd/popper.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+
+    <script src="/javascripts/turf.min.js"></script>
+
     <script src="/javascripts/client.js"></script>
     <script src="/javascripts/meeting.js"></script>
-    <script src="/javascripts/turf.min.js"></script>
 
   </body>
 </html>

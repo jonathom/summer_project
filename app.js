@@ -24,11 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 //  using the mongo-driver
-
 const mongodb = require('mongodb');
-
 
 function connectMongoDb() {
   // finish this block before the server starts,
@@ -68,6 +65,11 @@ app.use((req, res, next) => {
 });
 
 
+app.use("/leaflet", express.static(__dirname + "/node_modules/leaflet/dist"));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/popper', express.static(__dirname + '/node_modules/popper.js/dist'));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -75,6 +77,7 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
