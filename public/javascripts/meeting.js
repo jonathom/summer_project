@@ -56,22 +56,20 @@ placeMarker(meetingPoint, firstName, firstType, secondName, secondType);
 }
 }
 
-function checkEntcounter(vFirstName, vFirstType, vSecondName, vSecondtype){
+/* function checkEncounter(vFirstName, vFirstType, vSecondName, vSecondtype){
 
   if(vFirstName == vSecondName && vFirstType == vSecondtype){
        markerList = "You encounterd yourself. Congrats!";
        console.log(markerList);
        return markerList;
-
   }
-
-}
+} */
 
 
 /**
 * @desc Places a Marker on the map
 * @param coordi The coordinates
-* @author Benjamin Rieke 408743"<table>
+* @author Benjamin Rieke 408743
 */
 function placeMarker(coordi, vFirstName, vFirstType, vSecondName, vSecondtype){
 var markerList = '';
