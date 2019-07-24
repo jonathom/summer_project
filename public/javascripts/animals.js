@@ -3,21 +3,37 @@
 * @desc Loads the routes and informations for a chosen study and animal
 * @author Benjamin Rieke 408743
 */
+
 function loadStudy(){
+
   // jshint esversion: 6
   var jsonUrl = "https://www.movebank.org/movebank/service/json-auth";
   var study_id = document.getElementById('idInput').value; // !! add the Movebank ID for your study, available in the Study Details
   var individual_local_identifiers = [document.getElementById('individualInput').value]; // !! add the exact Animal IDs for the animals in the study that you want to show on the map
+  var sensor = document.getElementById("sensorType")  .elements["sensorType"].value;
+// Check if a study and a animal id has been chosen
+  if(study_id == '' && individual_local_identifiers == ''){
+    alert("Please enter a Study and a Animal Id. For more Informations see: https://www.movebank.org/")
+    return;
+  }
+  else
 $.getJSON(jsonUrl + "?callback=?", {
     study_id: study_id,
     individual_local_identifiers: individual_local_identifiers,
     //max_events_per_individual : '100',
     // timestamp_start: timestamp_start,
     // timestamp_end: timestamp_end,
-    sensor_type: "gps" // !! change if needed to specify the sensor type to display; options are gps, argos-doppler-shift, solar-geolocator, radio-transmitter, bird-ring, natural-mark
+    sensor_type: sensor
+// !! change if needed to specify the sensor type to display; options are gps, argos-doppler-shift, solar-geolocator, radio-transmitter, bird-ring, natural-mark
 }, function (data0) {
     data = data0;
     document.getElementById("JSONresponse").value = JSON.stringify(data0);
+    // check if the response from the sever is working according to the chosen sensor
+    if (JSON.stringify(data0) == '{"individuals":[]}') {
+      alert("Please try another Sensor-Type")
+      return;
+    }
+    else
     console.log(data0.individuals[0].locations[0].location_lat);
     coordinates = [];
     for(let i = 0; i < data0.individuals[0].locations.length; i++) {
@@ -46,7 +62,30 @@ $.getJSON(jsonUrl + "?callback=?", {
     document.getElementById("routeName").value = data0.individuals[0].individual_taxon_canonical_name + " at " + timestamp;
 
 });
+
 }
+
+
+
+/**
+* @desc Simple Jquery function for the button animation
+* @author Benjamin Rieke 408743
+*/
+
+$(document).ready(function() {
+  $('.btn').on('click', function() {
+    var $this = $(this);
+    var loadingText = 'Loading animal routes...';
+    if ($(this).html() !== loadingText) {
+      $this.data('original-text', $(this).html());
+      $this.html(loadingText);
+    }
+    setTimeout(function() {
+      $this.html($this.data('original-text'));
+    }, 2000);
+  });
+})
+
 
 /**
   * converts an array of coordinates into a LineString in GeoJSON format

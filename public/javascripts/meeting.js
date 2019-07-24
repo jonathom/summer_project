@@ -205,6 +205,18 @@ if(vFirstType == 'completed' && vSecondType == 'animal'){
 markerList = "You walked on the same paths as " +  vSecondName+"!  An Animal! How wonderful!" ;
 console.log(markerList);
 }
+
+// For the strange case that an animal checks its routes and meets another animal
+if(vFirstType == 'animal' && vSecondType == vFirstType){
+markerList = "Animal language! Woof woof! Meow we are animals MEEEEOOOOOOWWW, Woof Woof! Animal language!" ;
+console.log(markerList);
+}
+
+if(vFirstType == 'animal' && vSecondType != vFirstType){
+markerList = "Animal language! Woof woof! Meow Give me Food Human MEEEEOOOOOOWWW, Woof Woof! Animal language!" ;
+console.log(markerList);
+}
+
 console.log(vFirstType);
 L.marker(coordi).addTo(map)
  .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather +'<br>  <button type="button" onclick="createRouteButton()" class="btn btn-dark">Share</button>');
