@@ -8,6 +8,7 @@
   * calls next function
   * @author Jonathan Bahlmann
   */
+
 function getAllRoutes() {
   let routesJSON = [];
   $.getJSON('/users/routes', function(data) {
@@ -20,7 +21,7 @@ function getAllRoutes() {
 
 }
 
-var meetingPointsArray = [];
+
 
 /**
   * @desc Initializes the comparison of all routes with a chosen route
@@ -31,6 +32,10 @@ function checkForMeetings(allRoutes) {
   //allRoutes is array with route-strings in JSON format
   //get firstLine from input textarea
   var firstLine = document.getElementById("routeInQuestion").value;
+  if (firstLine == ''){
+    alert("Please select your route")
+  }
+  else
 
   //calculate meeting Points for all routes
   for(let i = 0; i < allRoutes.length; i++) {
@@ -44,6 +49,58 @@ var apiKey = '21381ccbb60531b0ec9d57038076849a';
 
 //array of featureCollections
 var meetingsArray = [];
+
+  /**
+  *@desc  Displays all the intersections that are in the global meetingsArray
+  *@author Benjamin Rieke 408743
+  */
+
+function intersectOutput() {
+
+    var tableContent ='';
+    // for each entry in meetingsArray create a new row and checkbox
+    $.each(meetingsArray, function(index) {
+      tableContent += '<tr>';
+      var checkbox = "<input type='checkbox' id='coords"+index+"' name='coords' onchange='displayPoint("+index+")'></checkbox>";
+      tableContent += '<td>' + checkbox + '</td>';
+      tableContent += '<td>' + this.properties.intersectNumber + '</td>';
+      tableContent += '<td>' + this.properties.firstUsername + '</td>';
+      tableContent += '<td>' + this.properties.secondUsername + '</td>';
+      tableContent += '<td>' + this.properties.firstType; + '</td>';
+      tableContent += '<td><button type="button" class="btn btn-secondary" onclick="displayPoint()">Save</button></td>';
+
+      tableContent += '</tr>';
+
+    $('#intersectTable').html(tableContent);
+  });
+}
+/**
+*@desc  Makes the map zoom to the checked meeting point and resets if unchecked
+*@param index The number of the entry in the array
+*@author Benjamin Rieke 408743
+*/
+function displayPoint(index) {
+  console.log("displayPoint "+index);
+  var pointId = "coords";
+  pointId += index;
+  console.log(index);
+  var lat = meetingsArray[index].geometry.coordinates[0]
+   var lng = meetingsArray[index].geometry.coordinates[1]
+  if(document.getElementById(pointId).checked) {
+    //put into routeInQuestion textarea
+console.log(meetingsArray[index].geometry.coordinates);
+
+
+ map.flyTo(new L.LatLng(lat, lng), 15);
+    //insert into 'memory' array
+  }
+  else {
+    map.flyTo(new L.LatLng(lat, lng), 8);
+
+    console.log("unchecked");
+  }
+}
+
 /**
   * @desc Checks if two choosen routes are intersecting eachother
   * Uses turf.js
@@ -62,7 +119,6 @@ function lineStringsIntersect(firstLine, secondLine) {
 
   //GeoJSON of intersections
   var intersects = turf.lineIntersect(l1.features[0].geometry, l2.features[0].geometry);
-
   // for each intersection do
   for(let i = 0; intersects.features[i]; i++) {
     intersects.features[i].properties.firstUsername = l1.username;
@@ -71,6 +127,8 @@ function lineStringsIntersect(firstLine, secondLine) {
     intersects.features[i].properties.secondID = l2._id;
     intersects.features[i].properties.firstType = l1.routeType;
     intersects.features[i].properties.secondType = l2.routeType;
+    intersects.features[i].properties.intersectNumber = i;
+
     //console.log(JSON.stringify(intersects.features[i]));
     var meetingPoint = (intersects.features[i].geometry.coordinates);
     // switch lat and long for display on leaflet
@@ -80,8 +138,9 @@ function lineStringsIntersect(firstLine, secondLine) {
 
     let thisPoint = intersects.features[i];
 
-    xhrGetWeather(thisPoint.geometry.coordinates[0], thisPoint.geometry.coordinates[1], handleWeather, thisPoint);
+    intersectOutput();
 
+    xhrGetWeather(thisPoint.geometry.coordinates[0], thisPoint.geometry.coordinates[1], handleWeather, thisPoint, meetingsArray);
 
   }
 }
@@ -94,7 +153,7 @@ function lineStringsIntersect(firstLine, secondLine) {
   * @param cFunc callback function for successful request
   * @param i index passed down into cFunc
   */
-function xhrGetWeather(lat, lon, cFunc, meetingPoint) {
+function xhrGetWeather(lat, lon, cFunc, meetingPoint, meetingsArray) {
   console.log("xhrGetWeather called");
   var url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+apiKey;
   var xhttp = new XMLHttpRequest();
@@ -117,7 +176,7 @@ function xhrGetWeather(lat, lon, cFunc, meetingPoint) {
   * @param xhttp xhttp responseText
   * @param i index to save the responseText at the right place in table
   */
-function handleWeather(xhttp, meetingPoint) {
+function handleWeather(xhttp, meetingPoint, meetingsArray) {
   //parse resonse
   weatherXML = JSON.parse(xhttp.responseText);
   let temperature = weatherXML.main.temp;
@@ -131,10 +190,11 @@ function handleWeather(xhttp, meetingPoint) {
   var n2 = meetingPoint.properties.secondUsername;
   var t1 = meetingPoint.properties.firstType;
   var t2 = meetingPoint.properties.secondType;
+  var meetNumber = meetingPoint.properties.intersectNumber;
 //TODO type ist featureCollection
   console.log(t1);
 
-  placeMarker(meetingPoint.geometry.coordinates, n1, t1, n2, t2, wString);
+  placeMarker(meetingPoint.geometry.coordinates, n1, t1, n2, t2,  wString, meetingsArray);
 
 }
 
@@ -217,8 +277,6 @@ markerList = "Animal language! Woof woof! Meow Give me Food Human MEEEEOOOOOOWWW
 console.log(markerList);
 }
 
-console.log(vFirstType);
 L.marker(coordi).addTo(map)
- .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather +'<br>  <button type="button" onclick="createRouteButton()" class="btn btn-dark">Share</button>');
-
+ .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather);
 }

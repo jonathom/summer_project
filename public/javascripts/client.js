@@ -26,8 +26,11 @@ $(document).ready(function() {
 
 });
 
-
-//read routes
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@author Jonathan Bahlmann
+  */
 function readRoutes() {
 
   //get JSON from DB
@@ -44,23 +47,9 @@ function readRoutes() {
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '</tr>';
 
-      /* create simple route view as col-sm-1
-       * this is an old solution
-      content += "<div id='"+index+"' class='col-sm-1'>";
-      //create checkbox for each route
-      var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
-      var label = "<label for='route"+index+"'>route"+index+"</label>";
-      label += this.username;
 
-      content += checkbox;
-      content += label;
-      content += "</div>";
-      */
     });
 
-    /*insert created content
-    $('#results').html(content);
-    */
 
     $('#resultTable').html(tableContent);
   });
@@ -74,6 +63,8 @@ function displayRoute(index) {
   if(document.getElementById(id).checked) {
     //put into routeInQuestion textarea
     document.getElementById("routeInQuestion").value = JSON.stringify(routesJSON[index]);
+    document.getElementById("p1").innerHTML = "You chose:   " + JSON.stringify(routesJSON[index].name);
+
 
     var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
     var line = L.polyline(LatLon, {color: "red", weight: 3});

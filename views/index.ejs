@@ -43,7 +43,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Check</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Username</th>
@@ -56,10 +56,28 @@
           </table>
         </div>
         <div class="col-sm-4">
-          <h4>Meeting Func</h4>
-          <textarea type="text" id="routeInQuestion"></textarea>
+          <h4 id="p1">Your chosen route: </h4>
+
+          <textarea type="text" style="display:none" id="routeInQuestion"></textarea>
 
            <button type="button" class="btn btn-secondary" onclick="getAllRoutes()">Check for meetings</button>
+           <div class="col-sm-4">
+             <h4>Meetingpoint selection</h4>
+             <table class="table table-striped">
+               <thead>
+                 <tr>
+                   <th>Check</th>
+                   <th>Number</th>
+                   <th>You</th>
+                   <th>Encounter</th>
+                   <th>Type</th>
+                 </tr>
+               </thead>
+               <tbody id="intersectTable">
+
+               </tbody>
+             </table>
+           </div>
 
 
         </div>
