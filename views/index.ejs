@@ -45,7 +45,13 @@
               <tr>
                 <th>Check</th>
                 <th>Name</th>
-                <th>Type</th>
+                <th><select class="selectpicker" size="1">
+  <option selected>Type</option>
+  <option value="planned">planned</option>
+  <option value="completed">completed</option>
+    <option value="animal">animal</option>
+
+</select></th>
                 <th>Username</th>
                 <th>Date</th>
               </tr>
@@ -83,6 +89,23 @@
         </div>
         <div class="col-sm-4">
           <h4>Meeting Points</h4>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Created by</th>
+                <th>Encounterd</th>
+                <th>Created</th>
+                <th>Zoom to</th>
+                <th>Delete</th>
+
+              </tr>
+            </thead>
+            <tbody id="meetingPointsTable">
+
+            </tbody>
+          </table>
         </div>
 
       </div>

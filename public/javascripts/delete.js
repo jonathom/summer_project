@@ -17,6 +17,7 @@ function showRoutes() {
     routesArray = data;
     console.log(data);
     $.each(data, function(index) {
+      if (routesArray[index].features[0].geometry.type  == "LineString"  ) {
       console.log(this);
       console.log(this._id);
       tableContent += '<tr>';
@@ -28,7 +29,7 @@ function showRoutes() {
       tableContent += '<td>' + this.desc + '</td>';
       tableContent += '<td><a href="#" class="linkdeleteroute" rel="' + this._id + '">Delete</a></td>';
       tableContent += '</tr>';
-    });
+    }});
 
     //put into html
     $('#routeTable').html(tableContent);

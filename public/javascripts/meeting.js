@@ -1,7 +1,12 @@
 // jshint esversion: 6
 
 //do two routes meet?
-
+//Create a Layergroup for the markers
+var layerGroup = L.layerGroup().addTo(map);
+//On start load the meetingpoints
+$(document).ready(function() {
+  readPoints();
+});
 /**
   *@desc  function getAllRoutes is button response function for calculate meetings button
   * gets JSON routes from db
@@ -11,6 +16,10 @@
 
 function getAllRoutes() {
   let routesJSON = [];
+// When called remove all existing markers
+layerGroup.clearLayers();
+
+
   $.getJSON('/users/routes', function(data) {
     //for each, do
     $.each(data, function(index) {
@@ -20,8 +29,6 @@ function getAllRoutes() {
   });
 
 }
-
-
 
 /**
   * @desc Initializes the comparison of all routes with a chosen route
@@ -50,56 +57,6 @@ var apiKey = '21381ccbb60531b0ec9d57038076849a';
 //array of featureCollections
 var meetingsArray = [];
 
-  /**
-  *@desc  Displays all the intersections that are in the global meetingsArray
-  *@author Benjamin Rieke 408743
-  */
-
-function intersectOutput() {
-
-    var tableContent ='';
-    // for each entry in meetingsArray create a new row and checkbox
-    $.each(meetingsArray, function(index) {
-      tableContent += '<tr>';
-      var checkbox = "<input type='checkbox' id='coords"+index+"' name='coords' onchange='displayPoint("+index+")'></checkbox>";
-      tableContent += '<td>' + checkbox + '</td>';
-      tableContent += '<td>' + this.properties.intersectNumber + '</td>';
-      tableContent += '<td>' + this.properties.firstUsername + '</td>';
-      tableContent += '<td>' + this.properties.secondUsername + '</td>';
-      tableContent += '<td>' + this.properties.firstType; + '</td>';
-      tableContent += '<td><button type="button" class="btn btn-secondary" onclick="displayPoint()">Save</button></td>';
-
-      tableContent += '</tr>';
-
-    $('#intersectTable').html(tableContent);
-  });
-}
-/**
-*@desc  Makes the map zoom to the checked meeting point and resets if unchecked
-*@param index The number of the entry in the array
-*@author Benjamin Rieke 408743
-*/
-function displayPoint(index) {
-  console.log("displayPoint "+index);
-  var pointId = "coords";
-  pointId += index;
-  console.log(index);
-  var lat = meetingsArray[index].geometry.coordinates[0]
-   var lng = meetingsArray[index].geometry.coordinates[1]
-  if(document.getElementById(pointId).checked) {
-    //put into routeInQuestion textarea
-console.log(meetingsArray[index].geometry.coordinates);
-
-
- map.flyTo(new L.LatLng(lat, lng), 15);
-    //insert into 'memory' array
-  }
-  else {
-    map.flyTo(new L.LatLng(lat, lng), 8);
-
-    console.log("unchecked");
-  }
-}
 
 /**
   * @desc Checks if two choosen routes are intersecting eachother
@@ -127,7 +84,7 @@ function lineStringsIntersect(firstLine, secondLine) {
     intersects.features[i].properties.secondID = l2._id;
     intersects.features[i].properties.firstType = l1.routeType;
     intersects.features[i].properties.secondType = l2.routeType;
-    intersects.features[i].properties.intersectNumber = i;
+    intersects.features[i].properties.intersectNumber = i+1;
 
     //console.log(JSON.stringify(intersects.features[i]));
     var meetingPoint = (intersects.features[i].geometry.coordinates);
@@ -137,13 +94,15 @@ function lineStringsIntersect(firstLine, secondLine) {
     meetingsArray.push(intersects.features[i]);
 
     let thisPoint = intersects.features[i];
-
+// print the interscetions into a table
     intersectOutput();
-
+// get the weather for each individual intersection
     xhrGetWeather(thisPoint.geometry.coordinates[0], thisPoint.geometry.coordinates[1], handleWeather, thisPoint, meetingsArray);
 
   }
 }
+
+
 
 /**
   * this function handles the xhr request to openweathermap
@@ -277,6 +236,223 @@ markerList = "Animal language! Woof woof! Meow Give me Food Human MEEEEOOOOOOWWW
 console.log(markerList);
 }
 
-L.marker(coordi).addTo(map)
+L.marker(coordi).addTo((layerGroup))
  .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather);
+}
+/**
+*@desc  Displays all the intersections that are in the global meetingsArray
+*@author Benjamin Rieke 408743
+*/
+//TODO: Table adds up with each call
+function intersectOutput() {
+
+  var tableContent ='';
+  // for each entry in meetingsArray create a new row and checkbox
+  $.each(meetingsArray, function(index) {
+    tableContent += '<tr>';
+    var checkbox = "<input type='checkbox' id='coords"+index+"' name='coords' onchange='displayPoint("+index+")'></checkbox>";
+    var button = "<button type='button' class='btn btn-secondary' onclick='buttonAddMeeting("+index+")'>Save</button>"
+    tableContent += '<td>' + checkbox + '</td>';
+    tableContent += '<td>' + this.properties.intersectNumber + '</td>';
+    tableContent += '<td>' + this.properties.firstUsername + '</td>';
+    tableContent += '<td>' + this.properties.secondUsername + '</td>';
+    tableContent += '<td>' + this.properties.firstType; + '</td>';
+    tableContent += '<td>'+ button +'</td>';
+
+    tableContent += '</tr>';
+
+  $('#intersectTable').html(tableContent);
+});
+}
+/**
+*@desc  Makes the map zoom to the checked meeting point and resets if unchecked
+*@param index The number of the entry in the array
+*@author Benjamin Rieke 408743
+*/
+function displayPoint(index) {
+console.log("displayPoint "+index);
+var pointId = "coords";
+pointId += index;
+console.log(index);
+var lat = meetingsArray[index].geometry.coordinates[0]
+ var lng = meetingsArray[index].geometry.coordinates[1]
+if(document.getElementById(pointId).checked) {
+  //put into routeInQuestion textarea
+console.log(meetingsArray[index].geometry.coordinates);
+
+
+map.flyTo(new L.LatLng(lat, lng), 15);
+  //insert into 'memory' array
+}
+else {
+  map.flyTo(new L.LatLng(lat, lng), 8);
+
+  console.log("unchecked");
+}
+}
+
+/**
+  *@desc Adds a meetingpoint to the database
+  *@param index The index to have the right route of the database
+  *@author Benjamin Rieke
+  */
+
+function buttonAddMeeting(index) {
+
+  var now = new Date();
+  let year = now.getFullYear();
+  let month = '' + (now.getMonth() + 1);
+  if(month.length < 2) { month = '0' + month; }
+  let day = '' + now.getDate();
+  if(day.length < 2) { day = '0' + day; }
+  now = day+'-'+month+'-'+year;
+
+  var pointId = "coords";
+  pointId += index;
+   event.preventDefault();
+
+    var newPoint = toGeoJsonPoint(meetingsArray[index].geometry.coordinates)
+
+    var addAttr = (newPoint);
+
+    addAttr.firstUsername = meetingsArray[index].properties.firstUsername;
+    addAttr.encounter = meetingsArray[index].properties.secondUsername;
+    addAttr.firstType = meetingsArray[index].properties.firstType;
+    addAttr.intersectNumber = meetingsArray[index].properties.intersectNumber;
+    addAttr.timeStamp = now;
+    var newPointString = JSON.stringify(addAttr);
+
+    //post
+    $.ajax({
+      type: 'POST',
+      data: newPointString,
+      url: '/users/addroute',
+      contentType:"application/json"
+    }).done(function(response) {
+      console.dir(response);
+      //successful
+      if(response.error === 0) {
+        alert('Meetingpoint added: ' + response.msg);
+        readPoints()
+      }
+      else {
+        alert('Error: ' + response.msg);
+      }
+    });
+}
+/**
+  *@desc  Converts coordinates into
+  * a valid GEOJSON output
+  *@author Jonathan Bahlmann
+  */
+function toGeoJsonPoint(coordinates) {
+  return {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Point',
+          coordinates: coordinates
+        }
+      },
+    ]
+  };
+}
+
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@author Jonathan Bahlmann
+  */
+  function readPoints() {
+
+  //get JSON from DB
+  $.getJSON('/users/routes', function(data) {
+    routesJSON = data;
+    var tableContent ='';
+    var i = 0;
+
+
+    $.each(data, function(index) {
+      var button = "<button type='button' class='btn btn-secondary' onclick='zoomTo("+index+")'>Zoom</button>"
+    //  console.log(routesJSON[index].features[0].geometry.type );
+    if (routesJSON[index].features[0].geometry.type  == "Point"  ) {
+      i++;
+      tableContent += '<tr>';
+      tableContent += '<td>' + i + '</td>';
+      tableContent += '<td>' + this.firstUsername + '</td>';
+      tableContent += '<td>' + this.encounter + '</td>';
+      tableContent += '<td>' + this.timeStamp + '</td>';
+      tableContent += '<td>' + button + '</td>';
+      tableContent += '<td><a href="#" class="linkdeletepoint" rel="' + this._id + '">Delete</a></td>';
+
+
+      tableContent += '</tr>';
+}
+
+    });
+
+
+    $('#meetingPointsTable').html(tableContent);
+    $('#meetingPointsTable').on('click', 'td a.linkdeletepoint', deletePoint);
+
+  });
+}
+
+/**
+*@desc  Deletes a meetingpoint from the databse
+*@param event Which deleted meetingpoint is based on the pressed row in the table
+*@author Benjamin Rieke 408743
+*/
+function deletePoint(event) {
+  event.preventDefault();
+
+    $.ajax({
+      type: 'DELETE',
+      url: '/users/deleteroute/' + $(this).attr('rel')
+    }).done(function(response) {
+      if(response.msg === '') {
+        alert('done!');
+      }
+      else {
+        //alert('Error: ' + response.msg);
+      }
+
+      //update
+      readPoints();
+    });
+}
+
+// global variable to see if there is already a marker on the map
+var theMarker = {};
+
+/**
+*@desc  Makes the map zoom to the checked meeting point and resets if unchecked
+*@param index The number of the entry in the array
+*@author Benjamin Rieke 408743
+*/
+function zoomTo(index) {
+  $.getJSON('/users/routes', function(data) {
+    routesJSON = data;
+console.log(routesJSON[index].features[0].geometry.coordinates);
+    if (routesJSON[index].features[0].geometry.type  == "Point") {
+
+var pointId = "coords";
+pointId += index;
+// Set lat and long
+var lat = routesJSON[index].features[0].geometry.coordinates[0]
+ var lng = routesJSON[index].features[0].geometry.coordinates[1]
+ console.log(lat);
+
+
+map.flyTo(new L.LatLng(lat, lng), 15);
+// remove the old marker if it exists
+  if (theMarker != undefined) {
+           map.removeLayer(theMarker);
+     };
+// add marker
+theMarker =  L.marker(routesJSON[index].features[0].geometry.coordinates).addTo(map)
+}});
 }
