@@ -17,6 +17,8 @@ function showRoutes() {
     routesArray = data;
     console.log(data);
     $.each(data, function(index) {
+      if (routesArray[index].features[0].geometry.type  == "LineString"  ) {
+
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
       tableContent += '<td>' + this.name + '</td>';
@@ -26,7 +28,7 @@ function showRoutes() {
       tableContent += '<td>' + this.desc + '</td>';
       tableContent += '<td><a href="#" class="linkeditroute" rel="' + index + '">Edit</a></td>';
       tableContent += '</tr>';
-    });
+    }});
 
     //put into html
     $('#routeTable').html(tableContent);
