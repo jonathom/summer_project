@@ -3,6 +3,7 @@
 //do two routes meet?
 //Create a Layergroup for the markers
 var layerGroup = L.layerGroup().addTo(map);
+var secRoutesToDelete = []
 //On start load the meetingpoints
 $(document).ready(function() {
   readPoints();
@@ -86,6 +87,8 @@ function lineStringsIntersect(firstLine, secondLine) {
     intersects.features[i].properties.firstType = l1.routeType;
     intersects.features[i].properties.secondType = l2.routeType;
     intersects.features[i].properties.intersectNumber = i+1;
+    intersects.features[i].properties.intersectRootRoute = l2.features[0].geometry.coordinates;
+
 
     //console.log(JSON.stringify(intersects.features[i]));
     var meetingPoint = (intersects.features[i].geometry.coordinates);
@@ -257,26 +260,40 @@ function intersectOutput() {
 }
 /**
 *@desc  Makes the map zoom to the checked meeting point and resets if unchecked
+* Also display the original second reoute that intersected with the first one
 *@param index The number of the entry in the array
 *@author Benjamin Rieke 408743
 */
 function displayPoint(index) {
+// randomizer for color
+  var color;
+var r = Math.floor(Math.random() * 255);
+var g = Math.floor(Math.random() * 255);
+var b = Math.floor(Math.random() * 255);
+color= "rgb("+r+" ,"+g+","+ b+")";
+
 console.log("displayPoint "+index);
 var pointId = "coords";
 pointId += index;
-console.log(index);
 var lat = meetingsArray[index].geometry.coordinates[0]
  var lng = meetingsArray[index].geometry.coordinates[1]
 if(document.getElementById(pointId).checked) {
-  //put into routeInQuestion textarea
-console.log(meetingsArray[index].geometry.coordinates);
 
+//add original second route as a visual guidance
+var LatLon = turnLatLon(meetingsArray[index].properties.intersectRootRoute);
+var secLine = L.polyline(LatLon, {color: color, weight: 3});
+secLine.addTo(map);
+//insert into 'memory' array
+secRoutesToDelete[index] = secLine;
 
 map.flyTo(new L.LatLng(lat, lng), 15);
-  //insert into 'memory' array
+
+
 }
 else {
   map.flyTo(new L.LatLng(lat, lng), 8);
+  map.removeLayer(secRoutesToDelete[index]);
+
 
   console.log("unchecked");
 }
