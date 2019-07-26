@@ -112,7 +112,7 @@ function displayRoute(index) {
 
 
     var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
-    var line = L.polyline(LatLon, {color: "red", weight: 3});
+    var line = L.polyline(LatLon, {color: "red", weight: 4});
     line.addTo(map);
     map.fitBounds(line.getBounds());
     //insert into 'memory' array
