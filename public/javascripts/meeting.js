@@ -25,6 +25,8 @@ layerGroup.clearLayers();
     $.each(data, function(index) {
       routesJSON.push(JSON.stringify(this));
     });
+    meetingsArray.length = 0;
+
     checkForMeetings(routesJSON);
   });
 
@@ -68,7 +70,6 @@ var meetingsArray = [];
   */
 function lineStringsIntersect(firstLine, secondLine) {
   console.log("lSI called with 1: " + JSON.parse(firstLine).name + " 2: " + JSON.parse(secondLine).name);
-
   //lines geometry
   var l1 = JSON.parse(firstLine);
   var l2 = JSON.parse(secondLine);
@@ -177,63 +178,53 @@ if(vFirstName == vSecondName && vFirstType == vSecondType && vFirstType == 'plan
 //If you have two routes. One that is planned and the other is already completed
 if(vFirstName == vSecondName && vFirstType == 'planned' && vFirstType != vSecondType){
 markerList = "You will encounter yourself. Congrats!";
-console.log(markerList);
 }
 
 //If you have two routes. One that is already completed and the other is planned
 if(vFirstName == vSecondName && vFirstType == 'completed' && vFirstType != vSecondType){
 markerList = "You´ve already been here. Congrats!";
-console.log(markerList);
 }
 
 // If your planned route intersects with somebody elses
 if(vFirstName != vSecondName && vFirstType == 'planned' && vFirstType == vSecondType){
 markerList = "You might encounter " +  vSecondName+ " Say Hello!";
-console.log(markerList);
 }
 
 // If your planned route intersects with somebody elses
 if(vFirstName != vSecondName && vFirstType == 'planned' && vFirstType !=vSecondType){
 markerList = vSecondName+" was already here!";
-console.log(markerList);
 }
 
 // If your completed route intersected with somebody elses
 if(vFirstName != vSecondName && vFirstType == 'completed' && vFirstType ==vSecondType){
 markerList = "Your route intersected with " +  vSecondName+" Write him a message!";
-console.log(markerList);
 }
 
 // If your route intersected with somebody elses who has not completed it
 
 if(vFirstName != vSecondName && vFirstType == 'completed' && vFirstType !=vSecondType){
 markerList = "Your completed route might be intersected by " +  vSecondName+".Tell him if you liked it!";
-console.log(markerList);
 }
 
 //If an animal was on parts of your planned route
 
 if(vFirstType == 'planned' && vSecondType == 'animal'){
 markerList = "You will follow the paths of " +  vSecondName+"! An Animal!" ;
-console.log(markerList);
 }
 
 // If you were on the same path as an animal
 
 if(vFirstType == 'completed' && vSecondType == 'animal'){
 markerList = "You walked on the same paths as " +  vSecondName+"!  An Animal! How wonderful!" ;
-console.log(markerList);
 }
 
 // For the strange case that an animal checks its routes and meets another animal
 if(vFirstType == 'animal' && vSecondType == vFirstType){
 markerList = "Animal language! Woof woof! Meow we are animals MEEEEOOOOOOWWW, Woof Woof! Animal language!" ;
-console.log(markerList);
 }
 
 if(vFirstType == 'animal' && vSecondType != vFirstType){
 markerList = "Animal language! Woof woof! Meow Give me Food Human MEEEEOOOOOOWWW, Woof Woof! Animal language!" ;
-console.log(markerList);
 }
 
 L.marker(coordi).addTo((layerGroup))
@@ -359,6 +350,51 @@ function toGeoJsonPoint(coordinates) {
       },
     ]
   };
+}
+// For filtering the meetingpoints table
+$('#pointSelect').on('change', function(e){
+  readPointsSelect(this.value);
+});
+
+
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@author Jonathan Bahlmann
+  */
+  function readPointsSelect(changer) {
+
+  //get JSON from DB
+  $.getJSON('/users/routes', function(data) {
+    routesJSON = data;
+    var tableContent ='';
+    var i = 0;
+
+
+    $.each(data, function(index) {
+      var button = "<button type='button' class='btn btn-secondary' onclick='zoomTo("+index+")'>Zoom</button>"
+    //  console.log(routesJSON[index].features[0].geometry.type );
+    if (routesJSON[index].features[0].geometry.type  == "Point" && routesJSON[index].firstType == changer  ) {
+      i++;
+      tableContent += '<tr>';
+      tableContent += '<td>' + i + '</td>';
+      tableContent += '<td>' + this.firstUsername + '</td>';
+      tableContent += '<td>' + this.encounter + '</td>';
+      tableContent += '<td>' + this.timeStamp + '</td>';
+      tableContent += '<td>' + button + '</td>';
+      tableContent += '<td><a href="#" class="linkdeletepoint" rel="' + this._id + '">Delete</a></td>';
+
+
+      tableContent += '</tr>';
+}
+
+    });
+
+
+    $('#meetingPointsTable').html(tableContent);
+    $('#meetingPointsTable').on('click', 'td a.linkdeletepoint', deletePoint);
+
+  });
 }
 
 /**

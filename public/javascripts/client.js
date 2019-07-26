@@ -27,7 +27,7 @@ $(document).ready(function() {
 });
 
 //Changes the table accoridng to the chosen type
-$('select').on('change', function(e){
+$('#routesSelect').on('change', function(e){
   readRoutesSelect(this.value);
 });
 
