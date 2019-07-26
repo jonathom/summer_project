@@ -3,7 +3,9 @@
 //do two routes meet?
 //Create a Layergroup for the markers
 var layerGroup = L.layerGroup().addTo(map);
-var secRoutesToDelete = []
+// layer for intersecting routes
+var secRoutesToDelete = [];
+var markerText = [];
 //On start load the meetingpoints
 $(document).ready(function() {
   readPoints();
@@ -46,7 +48,8 @@ function checkForMeetings(allRoutes) {
     alert("Please select your route")
   }
   else
-
+  //flush markertext array
+markerText.length = 0;
   //calculate meeting Points for all routes
   for(let i = 0; i < allRoutes.length; i++) {
     if(firstLine != allRoutes[i]) {
@@ -69,26 +72,29 @@ var meetingsArray = [];
   * @param secondLine Another route that gets checked for intersections with the first one
   * @author Benjamin Rieke 408743
   */
+var counter = 0;
 function lineStringsIntersect(firstLine, secondLine) {
   console.log("lSI called with 1: " + JSON.parse(firstLine).name + " 2: " + JSON.parse(secondLine).name);
   //lines geometry
   var l1 = JSON.parse(firstLine);
   var l2 = JSON.parse(secondLine);
   //console.log(l1);
-
   //GeoJSON of intersections
   var intersects = turf.lineIntersect(l1.features[0].geometry, l2.features[0].geometry);
   // for each intersection do
   for(let i = 0; intersects.features[i]; i++) {
+
     intersects.features[i].properties.firstUsername = l1.username;
     intersects.features[i].properties.secondUsername = l2.username;
     intersects.features[i].properties.firstID = l1._id;
     intersects.features[i].properties.secondID = l2._id;
     intersects.features[i].properties.firstType = l1.routeType;
     intersects.features[i].properties.secondType = l2.routeType;
-    intersects.features[i].properties.intersectNumber = i+1;
+    intersects.features[i].properties.intersectNumber = counter;
     intersects.features[i].properties.intersectRootRoute = l2.features[0].geometry.coordinates;
 
+    //increase the counter to keep track
+    counter ++;
 
     //console.log(JSON.stringify(intersects.features[i]));
     var meetingPoint = (intersects.features[i].geometry.coordinates);
@@ -96,7 +102,6 @@ function lineStringsIntersect(firstLine, secondLine) {
     intersects.features[i].geometry.coordinates = [meetingPoint[1], meetingPoint[0]];
     //push to meetingsArray
     meetingsArray.push(intersects.features[i]);
-
     let thisPoint = intersects.features[i];
 // print the interscetions into a table
     intersectOutput();
@@ -232,6 +237,8 @@ markerList = "Animal language! Woof woof! Meow Give me Food Human MEEEEOOOOOOWWW
 
 L.marker(coordi).addTo((layerGroup))
  .bindPopup(markerList +"<br> The current weather at this location is: " +vWeather);
+markerText.push(markerList);
+
 }
 /**
 *@desc  Displays all the intersections that are in the global meetingsArray
@@ -281,7 +288,7 @@ if(document.getElementById(pointId).checked) {
 
 //add original second route as a visual guidance
 var LatLon = turnLatLon(meetingsArray[index].properties.intersectRootRoute);
-var secLine = L.polyline(LatLon, {color: color, weight: 3});
+var secLine = L.polyline(LatLon, {color: color, weight: 4});
 secLine.addTo(map);
 //insert into 'memory' array
 secRoutesToDelete[index] = secLine;
@@ -327,6 +334,7 @@ function buttonAddMeeting(index) {
     addAttr.encounter = meetingsArray[index].properties.secondUsername;
     addAttr.firstType = meetingsArray[index].properties.firstType;
     addAttr.intersectNumber = meetingsArray[index].properties.intersectNumber;
+    addAttr.marker = markerText[meetingsArray[index].properties.intersectNumber]
     addAttr.timeStamp = now;
     var newPointString = JSON.stringify(addAttr);
 
@@ -497,7 +505,6 @@ pointId += index;
 // Set lat and long
 var lat = routesJSON[index].features[0].geometry.coordinates[0]
  var lng = routesJSON[index].features[0].geometry.coordinates[1]
- console.log(lat);
 
 
 map.flyTo(new L.LatLng(lat, lng), 15);
@@ -506,6 +513,8 @@ map.flyTo(new L.LatLng(lat, lng), 15);
            map.removeLayer(theMarker);
      };
 // add marker
-theMarker =  L.marker(routesJSON[index].features[0].geometry.coordinates).addTo(map)
+console.log(markerText);
+theMarker =  L.marker(routesJSON[index].features[0].geometry.coordinates).addTo(map).bindPopup(routesJSON[index].marker);
+
 }});
 }
