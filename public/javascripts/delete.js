@@ -18,8 +18,6 @@ function showRoutes() {
     console.log(data);
     $.each(data, function(index) {
       if (routesArray[index].features[0].geometry.type  == "LineString"  ) {
-      console.log(this);
-      console.log(this._id);
       tableContent += '<tr>';
       tableContent += '<td>' + index + '</td>';
       tableContent += '<td>' + this.name + '</td>';

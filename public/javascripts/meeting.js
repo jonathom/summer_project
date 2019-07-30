@@ -412,7 +412,9 @@ $('#pointSelect').on('change', function(e){
 
       tableContent += '</tr>';
 }
-
+if (changer == "Encounters") {
+  readPoints();
+}
     });
 
 
@@ -497,7 +499,6 @@ var theMarker = {};
 function zoomTo(index) {
   $.getJSON('/users/routes', function(data) {
     routesJSON = data;
-console.log(routesJSON[index].features[0].geometry.coordinates);
     if (routesJSON[index].features[0].geometry.type  == "Point") {
 
 var pointId = "coords";
@@ -513,7 +514,6 @@ map.flyTo(new L.LatLng(lat, lng), 15);
            map.removeLayer(theMarker);
      };
 // add marker
-console.log(markerText);
 theMarker =  L.marker(routesJSON[index].features[0].geometry.coordinates).addTo(map).bindPopup(routesJSON[index].marker);
 
 }});
