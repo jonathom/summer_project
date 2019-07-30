@@ -27,14 +27,12 @@ $.getJSON(jsonUrl + "?callback=?", {
 // !! change if needed to specify the sensor type to display; options are gps, argos-doppler-shift, solar-geolocator, radio-transmitter, bird-ring, natural-mark
 }, function (data0) {
     data = data0;
-    document.getElementById("JSONresponse").value = JSON.stringify(data0);
     // check if the response from the sever is working according to the chosen sensor
     if (JSON.stringify(data0) == '{"individuals":[]}') {
       alert("Please try another Sensor-Type")
       return;
     }
     else
-    console.log(data0.individuals[0].locations[0].location_lat);
     coordinates = [];
     for(let i = 0; i < data0.individuals[0].locations.length; i++) {
       let point = [];
@@ -44,7 +42,6 @@ $.getJSON(jsonUrl + "?callback=?", {
       point.push(lat);
       coordinates.push(point);
     }
-    console.log(coordinates.length);
     document.getElementById("GeoJson").value = JSON.stringify(toGeoJson(coordinates));
     document.getElementById("routeUsername").value = data0.individuals[0].individual_local_identifier;
     document.getElementById("routeDesc").value = data0.individuals[0].individual_taxon_canonical_name + ", study_id: " + data0.individuals[0].study_id;
@@ -57,7 +54,6 @@ $.getJSON(jsonUrl + "?callback=?", {
     let day = '' + timestamp.getDate();
     if(day.length < 2) { day = '0' + day; }
     timestamp = day+'-'+month+'-'+year;
-    console.log(timestamp);
     document.getElementById("routeDate").value = timestamp;
     document.getElementById("routeName").value = data0.individuals[0].individual_taxon_canonical_name + " at " + timestamp;
 
