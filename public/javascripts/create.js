@@ -1,5 +1,6 @@
 // jshint esversion: 6
 // on DOM ready
+
 $(document).ready(function() {
   fillDate();
 });

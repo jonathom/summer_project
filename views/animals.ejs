@@ -29,7 +29,7 @@
       </div>
     </nav>
 
-
+<br>
     <div class="container-fluid">
        <div class="row">
          <div class="col-sm-6">
@@ -51,14 +51,63 @@
              <br>
              <input type="text" id="routeDesc"> Description</input>
            </form>
+
            <br><br>
-           <button type="button" class="btn btn-secondary" onclick="buttonAddAnimal()">create Route</button>
+  <button type="button" class="btn btn-secondary" id="load"data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" onclick="loadStudy()">Get Study Data</button>
+           <button type="button" class="btn btn-secondary" onclick="buttonAddAnimal()">Create Route</button>
+
+           <form id="sensorType">
+           <input type="radio" name="sensorType" value="gps" checked> GPS</input>
+           <input type="radio" name="sensorType" value="radio-transmitter"> Radio-Transmitter</input>
+            </form>
+
+
+        </div>
+        <div class="col-sm-6">
+<b>Possible studies and a selection of animals. For further studys check:
+<br>
+  <a href =https://www.movebank.org/> https://www.movebank.org/</a></b>
+<br>
+<b>You can also create your needed account right there!</b>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nr</th>
+      <th scope="col">Study Id</th>
+      <th scope="col">Species</th>
+      <th scope="col">Animal Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>672882373</td>
+      <td>Milvus milvus(Red kite)</td>
+      <td>337</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>11017705</td>
+      <td>Anas platyrhynchos(Duck)</td>
+      <td>41722A</td>
+
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>19148474
+</td>
+      <td>Nyctalus noctula(Common noctule/Bat)</td>
+      <td>y13.5</td>
+
+    </tr>
+  </tbody>
+</table>
         </div>
       </div>
     </div>
-    <input type="text" id="idInput">idInput__11017705</input>
-    <input type="text" id="individualInput">individualInput__41722A</input>
-    <textarea type="text" id="JSONresponse"></textarea>
+    <input type="text" id="idInput" placeholder="Study Id"></input>
+    <input type="text" id="individualInput"placeholder="Animal Id"></input>
 
     <!-- footer -->
     <footer class="page-footer font-small">

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title><%= title %></title>
+    <title>Summerproject</title>
 
     <link rel="stylesheet" type="text/css" href="css/project.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -43,9 +43,15 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Check</th>
                 <th>Name</th>
-                <th>Type</th>
+                <th><select id="routesSelect" class="selectpicker" size="1">
+  <option selected>Type</option>
+  <option value="planned">planned</option>
+  <option value="completed">completed</option>
+    <option value="animal">animal</option>
+
+</select></th>
                 <th>Username</th>
                 <th>Date</th>
               </tr>
@@ -56,17 +62,57 @@
           </table>
         </div>
         <div class="col-sm-4">
-          <h4>Meeting Func</h4>
-          <textarea type="text" id="outputRoute1"></textarea>
-          <textarea type="text" id="outputRoute2"></textarea>
+          <h4 id="p1">Please choose your route</h4>
 
-           <button type="button" class="btn btn-secondary" onclick="lineStringsIntersect()">Check for meetings</button>
-           <textarea type="text" id="JSONresponse"></textarea>
+          <textarea type="text" style="display:none" id="routeInQuestion"></textarea>
+
+
+           <button type="button" class="btn btn-secondary" onclick="getAllRoutes()">Check for meetings</button>
+           <div class="col-sm-4">
+             <h4>Meetingpoint selection</h4>
+             <table class="table table-striped">
+               <thead>
+                 <tr>
+                   <th>Check</th>
+                   <th>Number</th>
+                   <th>You</th>
+                   <th>Encounter</th>
+                   <th>Type</th>
+                 </tr>
+               </thead>
+               <tbody id="intersectTable">
+
+               </tbody>
+             </table>
+           </div>
 
 
         </div>
         <div class="col-sm-4">
           <h4>Meeting Points</h4>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Created by</th>
+                <th><select id="pointSelect" class="selectpicker" size="1">
+  <option selected>Encounters</option>
+  <option value="completed">Here you have met</option>
+  <option value="planned">Here you might meet</option>
+    <option value="animal">If you are an animal</option>
+
+</selectpicker></th>
+                <th>Created</th>
+                <th>Zoom to</th>
+                <th>Delete</th>
+
+              </tr>
+            </thead>
+            <tbody id="meetingPointsTable">
+
+            </tbody>
+          </table>
         </div>
 
       </div>

@@ -26,15 +26,26 @@ $(document).ready(function() {
 
 });
 
+//Changes the table accoridng to the chosen type
+$('#routesSelect').on('change', function(e){
+  readRoutesSelect(this.value);
+});
 
-//read routes
-function readRoutes() {
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@param changer has a value from a select form
+  *and changes the output of the table
+  *@author Benjamin Rieke
+  */
+  function readRoutesSelect(changer) {
 
   //get JSON from DB
   $.getJSON('/users/routes', function(data) {
     routesJSON = data;
     var tableContent ='';
     $.each(data, function(index) {
+    if (routesJSON[index].features[0].geometry.type  == "LineString" && routesJSON[index].routeType == changer  ) {
       tableContent += '<tr>';
       var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
       tableContent += '<td>' + checkbox + '</td>';
@@ -43,52 +54,69 @@ function readRoutes() {
       tableContent += '<td>' + this.username + '</td>';
       tableContent += '<td>' + this.date + '</td>';
       tableContent += '</tr>';
+}
+if (changer == "Type") {
+  readRoutes();
+}
 
-      /* create simple route view as col-sm-1
-       * this is an old solution
-      content += "<div id='"+index+"' class='col-sm-1'>";
-      //create checkbox for each route
-      var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
-      var label = "<label for='route"+index+"'>route"+index+"</label>";
-      label += this.username;
-
-      content += checkbox;
-      content += label;
-      content += "</div>";
-      */
     });
-
-    /*insert created content
-    $('#results').html(content);
-    */
 
     $('#resultTable').html(tableContent);
   });
 }
 
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@author Jonathan Bahlmann
+  */
+  function readRoutes() {
+
+  //get JSON from DB
+  $.getJSON('/users/routes', function(data) {
+    routesJSON = data;
+    var tableContent ='';
+    $.each(data, function(index) {
+    if (routesJSON[index].features[0].geometry.type  == "LineString"  ) {
+      tableContent += '<tr>';
+      var checkbox = "<input type='checkbox' id='route"+index+"' name='routes' onchange='displayRoute("+index+")'></checkbox>";
+      tableContent += '<td>' + checkbox + '</td>';
+      tableContent += '<td>' + this.name + '</td>';
+      tableContent += '<td>' + this.routeType + '</td>';
+      tableContent += '<td>' + this.username + '</td>';
+      tableContent += '<td>' + this.date + '</td>';
+      tableContent += '</tr>';
+}
+
+    });
+
+
+    $('#resultTable').html(tableContent);
+  });
+}
+
+/**
+  *@desc  function gets the routes from the database
+  * and creates a table according to each entry
+  *@author Jonathan Bahlmann
+  */
 
 function displayRoute(index) {
   console.log("displayRoute "+index);
   var id = "route";
   id += index;
-  var first = document.getElementById("outputRoute1")
   if(document.getElementById(id).checked) {
-  if (typeof first !== "undefined" && first.value == '') {
-    document.getElementById("outputRoute1").value=JSON.stringify(routesJSON[index]);
-  }
-  else {
-    document.getElementById("outputRoute2").value=JSON.stringify(routesJSON[index]);
+    //put into routeInQuestion textarea
+    document.getElementById("routeInQuestion").value = JSON.stringify(routesJSON[index]);
+    document.getElementById("p1").innerHTML = "You chose:   " + JSON.stringify(routesJSON[index].name);
 
 
-  }
-
-
-  var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
-  var line = L.polyline(LatLon, {color: "red", weight: 3});
-  line.addTo(map);
-  map.fitBounds(line.getBounds());
-  //insert into 'memory' array
-  routesToDelete[index] = line;
+    var LatLon = turnLatLon(routesJSON[index].features[0].geometry.coordinates);
+    var line = L.polyline(LatLon, {color: "red", weight: 4});
+    line.addTo(map);
+    map.fitBounds(line.getBounds());
+    //insert into 'memory' array
+    routesToDelete[index] = line;
   }
   else {
     console.log("remove");
@@ -97,7 +125,7 @@ function displayRoute(index) {
 }
 
 /**
-  * quick function to turn around the coordinates
+  * @desc quick function to turn around the coordinates
   * @param array
   */
 function turnLatLon(array) {
