@@ -1,102 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Summerproject</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" type="text/css" href="css/project.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="leaflet/leaflet.css"/>
-    <script src="leaflet/leaflet.js"></script>
+  <title>Summerproject</title>
 
-  </head>
+  <link rel="stylesheet" type="text/css" href="css/project.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="leaflet/leaflet.css" />
+  <script src="leaflet/leaflet.js"></script>
 
-  <body>
+</head>
 
-    <!-- new Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">Summer Project</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<body>
+
+  <!-- new Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Summer Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/">Start</a>
-          <a class="nav-item nav-link" href="/create">Create Route</a>
-          <a class="nav-item nav-link" href="/animals">Animal Routes</a>
-          <a class="nav-item nav-link" href="/update">Update Routes</a>
-          <a class="nav-item nav-link" href="/delete">Delete Routes</a>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/">Start</a>
+        <a class="nav-item nav-link" href="/create">Create Route</a>
+        <a class="nav-item nav-link" href="/animals">Animal Routes</a>
+        <a class="nav-item nav-link" href="/update">Update Routes</a>
+        <a class="nav-item nav-link" href="/delete">Delete Routes</a>
       </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div id="mapdiv" style="width: 100%; height: 500px;" ;></div>
     </div>
+  </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-4">
-          <h4>Route selection</h4>
+  <div class="container-fluid">
+    <div id="mapdiv" style="width: 100%; height: 500px;" ;></div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-auto">
+        <h4>Route selection</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Name</th>
+              <th>
+                <select id="routesSelect" class="selectpicker" size="1">
+                  <option selected>Type</option>
+                  <option value="planned">planned</option>
+                  <option value="completed">completed</option>
+                  <option value="animal">animal</option>
+                </select>
+              </th>
+              <th>Username</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="resultTable">
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-sm-auto">
+        <h4 id="p1">Please choose your route</h4>
+        <textarea type="text" style="display:none" id="routeInQuestion"></textarea>
+        <button type="button" class="btn btn-secondary" onclick="getAllRoutes()">Check for meetings</button>
+        <br>
+        <br>
+          <h4>Meetingpoint selection</h4>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>Check</th>
-                <th>Name</th>
-                <th><select id="routesSelect" class="selectpicker" size="1">
-  <option selected>Type</option>
-  <option value="planned">planned</option>
-  <option value="completed">completed</option>
-    <option value="animal">animal</option>
-
-</select></th>
-                <th>Username</th>
-                <th>Date</th>
+                <th>Number</th>
+                <th>You</th>
+                <th>Encounter</th>
+                <th>Type</th>
               </tr>
             </thead>
-            <tbody id="resultTable">
+              <tbody id="intersectTable">
+          </tbody>
+            </table>
 
-            </tbody>
-          </table>
-        </div>
-        <div class="col-sm-4">
-          <h4 id="p1">Please choose your route</h4>
+      </div>
 
-          <textarea type="text" style="display:none" id="routeInQuestion"></textarea>
+      <div class="col-sm-auto">
+        <h4>Meeting Points</h4>
 
-
-           <button type="button" class="btn btn-secondary" onclick="getAllRoutes()">Check for meetings</button>
-           <div class="col-sm-4">
-             <h4>Meetingpoint selection</h4>
-             <table class="table table-striped">
-               <thead>
-                 <tr>
-                   <th>Check</th>
-                   <th>Number</th>
-                   <th>You</th>
-                   <th>Encounter</th>
-                   <th>Type</th>
-                 </tr>
-               </thead>
-               <tbody id="intersectTable">
-
-               </tbody>
-             </table>
-           </div>
-
-
-        </div>
-        <div class="col-sm-4">
-          <h4>Meeting Points</h4>
-
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Created by</th>
-                <th><select id="pointSelect" class="selectpicker" size="1">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Created by</th>
+              <th><select id="pointSelect" class="selectpicker" size="1">
   <option selected>Encounters</option>
   <option value="completed">Here you have met</option>
   <option value="planned">Here you might meet</option>
