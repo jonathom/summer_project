@@ -1,5 +1,6 @@
 // jshint esversion: 6
-// Assignment 07 // Jonathan Bahlmann // 453 524
+// taken from Assignment 07 // Jonathan Bahlmann // 453 524
+// is now part of summer project // Benjamin Rieke // Jonathan Bahlmann
 
 //save created routeViews to reference them when deleted
 var routesToDelete = [];
