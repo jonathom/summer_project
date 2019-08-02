@@ -65,9 +65,9 @@ if (changer == "Type") {
 }
 
 /**
-  *@desc  function gets the routes from the database
+  * function gets the routes from the database
   * and creates a table according to each entry
-  *@author Jonathan Bahlmann
+  * @author Jonathan Bahlmann
   */
   function readRoutes() {
 
@@ -95,9 +95,9 @@ if (changer == "Type") {
 }
 
 /**
-  *@desc  function gets the routes from the database
+  * function gets the routes from the database
   * and creates a table according to each entry
-  *@author Jonathan Bahlmann
+  * @author Jonathan Bahlmann
   */
 
 function displayRoute(index) {
@@ -124,7 +124,7 @@ function displayRoute(index) {
 }
 
 /**
-  * @desc quick function to turn around the coordinates
+  * quick function to turn around the coordinates
   * @param array
   */
 function turnLatLon(array) {

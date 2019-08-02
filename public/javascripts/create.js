@@ -76,6 +76,9 @@ function fillDate() {
   document.getElementById("routeDate").value = now;
 }
 
+/**
+  * function that handles the createButton event
+  */
 function createRouteButton() {
   event.preventDefault();
 

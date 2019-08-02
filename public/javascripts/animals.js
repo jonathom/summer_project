@@ -105,6 +105,11 @@ function toGeoJson(coordinates) {
   };
 }
 
+/**
+  * this function handles the add route button on the animal tracks webpage
+  * It is taken from the create.js function
+  * @author Jonathan Bahlmann
+  */
 function buttonAddAnimal() {
     event.preventDefault();
 

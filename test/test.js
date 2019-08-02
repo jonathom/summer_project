@@ -17,7 +17,8 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 /**
-  * @desc quick function to turn around the coordinates
+  * quick function to turn around the coordinates
+  * copy of the original function in client.js
   * @param array
   */
 function turnLatLon(array) {

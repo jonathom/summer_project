@@ -13,12 +13,11 @@ $(document).ready(function() {
   readPoints();
 });
 /**
-  *@desc  function getAllRoutes is button response function for calculate meetings button
+  * function getAllRoutes is button response function for calculate meetings button
   * gets JSON routes from db
   * calls next function
   * @author Jonathan Bahlmann
   */
-
 function getAllRoutes() {
   let routesJSON = [];
 // When called remove all existing markers
@@ -39,6 +38,8 @@ layerGroup.clearLayers();
 
 /**
   * @desc Initializes the comparison of all routes with a chosen route
+  * is the callback function to the '/users/routes' JSON call to make sure
+  * it is done when this func is called.
   * @param allRoutes All routes that are currently in the database
   * @author Jonathan Bahlmann
   */
@@ -285,7 +286,7 @@ console.log("displayPoint "+index);
 var pointId = "coords";
 pointId += index;
 var lat = meetingsArray[index].geometry.coordinates[0];
- var lng = meetingsArray[index].geometry.coordinates[1];
+var lng = meetingsArray[index].geometry.coordinates[1];
 if(document.getElementById(pointId).checked) {
 
 //add original second route as a visual guidance
@@ -313,7 +314,6 @@ else {
   *@param index The index to have the right route of the database
   *@author Benjamin Rieke
   */
-
 function buttonAddMeeting(index) {
 
   var now = new Date();
