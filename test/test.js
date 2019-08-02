@@ -13,7 +13,6 @@ var util = require("util");
 var chai = require('chai');
 should = chai.should;
 let chaiHttp = require('chai-http');
-var tokens = require('./apitoken.js');
 
 chai.use(chaiHttp);
 
