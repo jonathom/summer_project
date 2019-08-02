@@ -1,5 +1,7 @@
 // jshint esversion: 6
 
+console.log("meeting.js loaded");
+
 //do two routes meet?
 //Create a Layergroup for the markers
 var layerGroup = L.layerGroup().addTo(map);
