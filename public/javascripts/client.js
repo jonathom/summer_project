@@ -2,8 +2,6 @@
 // Assignment 07 // Jonathan Bahlmann // 453 524
 
 //save created routeViews to reference them when deleted
-
-
 var routesToDelete = [];
 // add map
 var start_latlng = [51, 10.4];
