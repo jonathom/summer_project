@@ -1,6 +1,6 @@
 {
-  "name": "summer_project, Benjamin Rieke & Jonathan Bahlmann",
-  "version": "0.1.0",
+  "name": "aufgabe-07-bahlmann",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
