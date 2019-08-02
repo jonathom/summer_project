@@ -1,6 +1,6 @@
 // jshint esversion: 6
 
-console.log("meeting.js loaded");
+var apiKey = '';
 
 //do two routes meet?
 //Create a Layergroup for the markers
@@ -60,8 +60,6 @@ markerText.length = 0;
     }
   }
 }
-
-var apiKey = '21381ccbb60531b0ec9d57038076849a';
 
 //array of featureCollections
 var meetingsArray = [];
