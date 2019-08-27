@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var token = require('./public/javascripts/token.js').token;
+
 var app = express();
 
 // view engine setup
@@ -31,41 +33,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 const mongodb = require('mongodb');
 
 function connectMongoDb() {
-  // finish this block before the server starts,
-  // there are some async tasks inside we need to wait for => declare async so we can use await
+
   (async () => {
-
-    try {
-      // Use connect method to the mongo-client with the mongod-service
-      //                      and attach connection and db reference to the app
-
-      try {
-        //named service
-        console.dir("trying on named service");
-        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://mongodbservice:27017", {useNewUrlParser: true});
-      } catch (error) {
-        console.dir("trying on local machine");
-        //same machine
-        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", {useNewUrlParser: true});
-      }
-      // using a local service on the same machine
-      //app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", {useNewUrlParser: true});
-
-      // using a named service (e.g. a docker container "mongodbservice")
-      //app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://mongodbservice:27017", {useNewUrlParser: true});
-
-      app.locals.db = await app.locals.dbConnection.db("itemdb");
-      console.log("Using db: " + app.locals.db.databaseName);
-    } catch (error) {
-      console.dir(error);
-
-      // retry until db-server is up
-      setTimeout(connectMongoDb, 3000);
+try {
+  app.locals.dbConnection = await mongodb.MongoClient.connect(
+    "mongodb://localhost:27017",
+    {
+      useNewUrlParser: true
     }
+  );
+  app.locals.db = await app.locals.dbConnection.db("itemdb");
+  console.log("Using Database " + app.locals.db.databaseName);
 
-    //mongo.close();
+} catch(error) {
+  try {
 
-  })();
+  app.locals.dbConnection = await mongodb.MongoClient.connect(
+    "mongodb://mongodbservice:27017",
+    {
+      useNewUrlParser: true
+    }
+  );
+  app.locals.db = await app.locals.dbConnection.db("itemdb");
+  console.log("Using Database " + app.locals.db.databaseName);
+
+
+} catch (error) {
+  console.log(error.message);
+}
+}
+}
+)();
 }
 
 connectMongoDb();
