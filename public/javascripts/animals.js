@@ -87,6 +87,7 @@ $(document).ready(function() {
   * converts an array of coordinates into a LineString in GeoJSON format
   * done by using this source:
   * @see https://github.com/perliedman/leaflet-routing-machine/blob/344ff09c8bb94d4e42fa583286d95396d8227c65/src/L.Routing.js
+  * @author Jonathan Bahlmann
   */
 function toGeoJson(coordinates) {
   return {
@@ -104,6 +105,11 @@ function toGeoJson(coordinates) {
   };
 }
 
+/**
+  * this function handles the add route button on the animal tracks webpage
+  * It is taken from the create.js function
+  * @author Jonathan Bahlmann
+  */
 function buttonAddAnimal() {
     event.preventDefault();
 

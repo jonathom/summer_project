@@ -1,9 +1,8 @@
 // jshint esversion: 6
-// Assignment 07 // Jonathan Bahlmann // 453 524
+// taken from Assignment 07 // Jonathan Bahlmann // 453 524
+// is now part of summer project // Benjamin Rieke // Jonathan Bahlmann
 
 //save created routeViews to reference them when deleted
-
-
 var routesToDelete = [];
 // add map
 var start_latlng = [51, 10.4];
@@ -66,9 +65,9 @@ if (changer == "Type") {
 }
 
 /**
-  *@desc  function gets the routes from the database
+  * function gets the routes from the database
   * and creates a table according to each entry
-  *@author Jonathan Bahlmann
+  * @author Jonathan Bahlmann
   */
   function readRoutes() {
 
@@ -96,9 +95,9 @@ if (changer == "Type") {
 }
 
 /**
-  *@desc  function gets the routes from the database
+  * function gets the routes from the database
   * and creates a table according to each entry
-  *@author Jonathan Bahlmann
+  * @author Jonathan Bahlmann
   */
 
 function displayRoute(index) {
@@ -125,7 +124,7 @@ function displayRoute(index) {
 }
 
 /**
-  * @desc quick function to turn around the coordinates
+  * quick function to turn around the coordinates
   * @param array
   */
 function turnLatLon(array) {
