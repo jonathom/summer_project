@@ -3,7 +3,6 @@ This is our solution for the final project in geosoftware 1, in summer semester 
 It is based on a forked solution of Aufgabe 7.
 ## Weblinks
 The code of this project can be found on github: [https://github.com/jonathom/summer_project](https://github.com/jonathom/summer_project)
-and the docker container can be found here: [https://cloud.docker.com/u/jonathom/repository/docker/jonathom/summerproject](https://cloud.docker.com/u/jonathom/repository/docker/jonathom/summerproject)
 ## Openweathermap api key
 Please got to [https://home.openweathermap.org/users/sign_up](https://home.openweathermap.org/users/sign_up) to get your openweathermap API key <br/>
 It needs to be inserted into the token.js file that can be found here: /public/javascripts.
