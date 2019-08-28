@@ -5,7 +5,7 @@ services:
     ports:
       - "3000:3000"
     links:
-      - mongodbservice # link this service to the database service
+      - mongodbservice
     depends_on:
       - mongodbservice
   mongodbservice:

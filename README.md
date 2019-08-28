@@ -12,9 +12,9 @@ you will be asked to enter movebank credentials, so a movebank.org account is ne
 To start the application via npm navigate to the app´s folder, open your commandprompt and enter <br/>
 `npm install`
 `npm start` <br/>
-The application will then be found in your browser at http://localhost:3000 <br/>
+The application can be found with your browser at http://localhost:3000 <br/>
 To start the application via docker navigate to the app´s folder, open your commandprompt and enter
 `docker-compose up`
-The application will then be found in your browser at http://192.168.99.100:3000/
+The application can be found with your browser at http://192.168.99.100:3000/
 ## Tests
 Can be run by typing `npm test`
