@@ -1,6 +1,5 @@
 // jshint esversion: 6
 
-var apiKey = '';
 
 //do two routes meet?
 //Create a Layergroup for the markers
@@ -124,7 +123,7 @@ function lineStringsIntersect(firstLine, secondLine) {
   */
 function xhrGetWeather(lat, lon, cFunc, meetingPoint, meetingsArray) {
   console.log("xhrGetWeather called");
-  var url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+apiKey;
+  var url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+token.owm;
   var xhttp = new XMLHttpRequest();
   //when ready
   xhttp.onreadystatechange = function() {

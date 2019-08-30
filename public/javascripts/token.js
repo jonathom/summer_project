@@ -5,5 +5,5 @@ var exports = window;
 
 // tokens tokens tokens...
 exports.token = {
-owm: "EnterYourTokenHere"
+owm: 'EnterYourOwmApiKeyHere'
 };
