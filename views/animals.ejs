@@ -51,16 +51,19 @@
              <br>
              <input type="text" id="routeDesc"> Description</input>
            </form>
-
            <br><br>
-  <button type="button" class="btn btn-secondary" id="load"data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" onclick="loadStudy()">Get Study Data</button>
-           <button type="button" class="btn btn-secondary" onclick="buttonAddAnimal()">Create Route</button>
+           <div>
+           <input type="text" id="idInput" placeholder="Study Id"></input>
+           <input type="text" id="individualInput"placeholder="Animal Id"></input>
+         </div>
 
-           <form id="sensorType">
-           <input type="radio" name="sensorType" value="gps" checked> GPS</input>
-           <input type="radio" name="sensorType" value="radio-transmitter"> Radio-Transmitter</input>
-            </form>
+         <form id="sensorType">
+         <input type="radio" name="sensorType" value="gps" checked> GPS</input>
+         <input type="radio" name="sensorType" value="radio-transmitter"> Radio-Transmitter</input>
+         </form>
 
+        <button type="button" class="btn btn-secondary" id="load"data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i>" onclick="loadStudy()">Get Study Data</button>
+        <button type="button" class="btn btn-secondary" onclick="buttonAddAnimal()">Create Route</button>
 
         </div>
         <div class="col-sm-6">
@@ -106,8 +109,7 @@
         </div>
       </div>
     </div>
-    <input type="text" id="idInput" placeholder="Study Id"></input>
-    <input type="text" id="individualInput"placeholder="Animal Id"></input>
+
 
     <!-- footer -->
     <footer class="page-footer font-small">
