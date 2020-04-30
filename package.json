@@ -21,7 +21,7 @@
     "git": "^0.1.5",
     "grunt": "^1.0.4",
     "http-errors": "~1.6.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "leaflet": "^1.5.1",
     "leaflet-routing-machine": "^3.2.12",
     "mocha": "^6.1.4",
